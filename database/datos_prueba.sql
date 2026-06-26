@@ -42,3 +42,10 @@ INSERT INTO pagos (contrato_id, fecha_pago, monto, mes_correspondiente, estado) 
 (2, '2025-03-05', 800.00, 'Marzo 2025', 'Pagado'),
 (2, '2025-04-06', 800.00, 'Abril 2025', 'Pagado'),
 (2, NULL, 800.00, 'Mayo 2025', 'Pendiente');
+
+-- Usuarios
+-- contraseña de todos: Admin123@ (ya encriptada con password_hash)
+INSERT INTO usuarios (nombre, email, password, rol, propietario_id, inquilino_id) VALUES
+('Edwin Admin', 'admin@inmocasa.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Admin', NULL, NULL),
+('Carlos Mendoza', 'carlos.mendoza@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Propietario', 1, NULL),
+('Ana Suárez', 'ana.suarez@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Inquilino', NULL, 1);

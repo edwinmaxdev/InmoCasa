@@ -1,14 +1,13 @@
 -- =====================================================
 --  InmoCasa - Base de datos
 --  Sistema de gestión inmobiliaria
---  Integrantes: Edwin, Tony, Damian
 -- =====================================================
 
 CREATE DATABASE IF NOT EXISTS inmocasa CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE inmocasa;
 
 -- =====================================================
---  TABLA: tipos_inmueble 
+--  TABLA: tipos_inmueble
 -- =====================================================
 CREATE TABLE IF NOT EXISTS tipos_inmueble (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,7 +30,7 @@ CREATE TABLE IF NOT EXISTS propietarios (
 );
 
 -- =====================================================
---  TABLA: inquilinos 
+--  TABLA: inquilinos
 -- =====================================================
 CREATE TABLE IF NOT EXISTS inquilinos (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -45,7 +44,7 @@ CREATE TABLE IF NOT EXISTS inquilinos (
 );
 
 -- =====================================================
---  TABLA: propiedades 
+--  TABLA: propiedades
 -- =====================================================
 CREATE TABLE IF NOT EXISTS propiedades (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,7 +61,7 @@ CREATE TABLE IF NOT EXISTS propiedades (
 );
 
 -- =====================================================
---  TABLA: contratos 
+--  TABLA: contratos
 -- =====================================================
 CREATE TABLE IF NOT EXISTS contratos (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -79,7 +78,7 @@ CREATE TABLE IF NOT EXISTS contratos (
 );
 
 -- =====================================================
---  TABLA: pagos 
+--  TABLA: pagos
 -- =====================================================
 CREATE TABLE IF NOT EXISTS pagos (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -94,7 +93,23 @@ CREATE TABLE IF NOT EXISTS pagos (
 );
 
 -- =====================================================
---  INDICES 
+--  TABLA: usuarios
+-- =====================================================
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    rol ENUM('Admin', 'Propietario', 'Inquilino') NOT NULL,
+    propietario_id INT DEFAULT NULL,
+    inquilino_id INT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (propietario_id) REFERENCES propietarios(id),
+    FOREIGN KEY (inquilino_id) REFERENCES inquilinos(id)
+);
+
+-- =====================================================
+--  INDICES
 -- =====================================================
 -- propiedades: búsquedas frecuentes por estado y tipo
 CREATE INDEX idx_propiedades_estado ON propiedades(estado);
@@ -113,3 +128,8 @@ CREATE INDEX idx_contratos_inquilino ON contratos(inquilino_id);
 -- pagos: filtrar por estado y contrato
 CREATE INDEX idx_pagos_estado ON pagos(estado);
 CREATE INDEX idx_pagos_contrato ON pagos(contrato_id);
+
+-- usuarios: búsqueda por rol y relaciones
+CREATE INDEX idx_usuarios_rol ON usuarios(rol);
+CREATE INDEX idx_usuarios_propietario ON usuarios(propietario_id);
+CREATE INDEX idx_usuarios_inquilino ON usuarios(inquilino_id);

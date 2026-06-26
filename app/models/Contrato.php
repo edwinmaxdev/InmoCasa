@@ -50,7 +50,7 @@ class Contrato{
                 VALUES(?,?,?,?,?,?,?)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
-                $datos['propiedades_id'],
+                $datos['propiedad_id'],
                 $datos['inquilino_id'],
                 $datos['fecha_inicio'],
                 $datos['fecha_fin'],
@@ -73,7 +73,7 @@ class Contrato{
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
-            $datos['propiedades_id'],
+            $datos['propiedad_id'],
             $datos['inquilino_id'],
             $datos['fecha_inicio'],
             $datos['fecha_fin'],
@@ -89,7 +89,7 @@ class Contrato{
     }
     public function eliminar($id){
         try{
-            $sql = "DELETE FROM contractos WHERE id = ?";
+            $sql = "DELETE FROM contratos WHERE id = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([$id]);
             return ["Exito"=> true , "mensaje"=>"Eliminacion del contractos exitoso"];
@@ -109,7 +109,7 @@ class Contrato{
                 ORDER BY c.fecha_fin ASC";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
-            return $stmt->fetch()['total'];
+            return $stmt->fetch();
         }catch(PDOException $e){
             return ["Exito"=> false , "mensaje"=>"Error de activos". $e->getMessage()];
         }

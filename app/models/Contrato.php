@@ -109,7 +109,7 @@ class Contrato{
                 ORDER BY c.fecha_fin ASC";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
-            return $stmt->fetch();
+            return $stmt->fetchAll();
         }catch(PDOException $e){
             return ["Exito"=> false , "mensaje"=>"Error de activos". $e->getMessage()];
         }

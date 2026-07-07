@@ -1,9 +1,8 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// =====================================================
-//  InmoCasa - Punto de entrada principal
-// =====================================================
 
 $action = $_GET['action'] ?? 'login';
 
@@ -16,18 +15,12 @@ if (!isset($_SESSION['usuario_id']) && !in_array($action, $rutasPublicas)) {
     exit();
 }
 
-// =====================================================
-//  CARGAR CONTROLADORES
-// =====================================================
 require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/ContratoController.php';
 require_once __DIR__ . '/../app/controllers/PagoController.php';
 require_once __DIR__ . '/../app/controllers/UsuarioController.php';
 require_once __DIR__ . '/../app/controllers/PropiedadController.php';
 
-// =====================================================
-//  ENRUTADOR
-// =====================================================
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
 switch ($action) {
@@ -71,7 +64,7 @@ switch ($action) {
         (new PropiedadController())->eliminar($id);
         break;
 
-    // TIPOS (Nagua - se agrega el require cuando esté listo)
+    // TIPOS 
     case 'tipos':
     case 'tipo_crear':
     case 'tipo_guardar':
@@ -90,7 +83,7 @@ switch ($action) {
         };
         break;
 
-    // PROPIETARIOS (Tony - se agrega el require cuando esté listo)
+    // PROPIETARIOS 
     case 'propietarios':
     case 'propietario_detalle':
     case 'propietario_crear':
@@ -111,7 +104,7 @@ switch ($action) {
         };
         break;
 
-    // INQUILINOS (Nagua - se agrega el require cuando esté listo)
+    // INQUILINOS 
     case 'inquilinos':
     case 'inquilino_detalle':
     case 'inquilino_crear':

@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $errores = $_SESSION['errores'] ?? [];
 unset($_SESSION['errores']);
 $mensaje = $_GET['mensaje'] ?? '';

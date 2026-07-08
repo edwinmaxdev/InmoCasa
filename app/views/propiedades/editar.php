@@ -1,19 +1,12 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+include_once __DIR__ . '/../layouts/header.php';
+
 $tipos = $tipos ?? [];
 $propietarios = $propietarios ?? [];
 $propiedad = $propiedad ?? [];
 $errores = $_SESSION['errores'] ?? [];
 unset($_SESSION['errores']);
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Editar propiedad - InmoCasa</title>
-<link rel="stylesheet" href="../../../public/css/style.css">
-</head>
-<body>
 
 <h1>Editar propiedad</h1>
 
@@ -23,7 +16,7 @@ unset($_SESSION['errores']);
     </ul>
 <?php endif; ?>
 
-<form id="formPropiedad" method="post" action="../../../public/index.php?action=propiedad_actualizar&id=<?= $propiedad['id'] ?>" onsubmit="return validarPropiedad();">
+<form id="formPropiedad" method="post" action="../../public/index.php?action=propiedad_actualizar&id=<?= $propiedad['id'] ?>" onsubmit="return validarPropiedad();">
 
     <label>Dirección</label><br>
     <input type="text" name="direccion" id="direccion" value="<?= htmlspecialchars($propiedad['direccion'] ?? '') ?>"><br>
@@ -63,7 +56,7 @@ unset($_SESSION['errores']);
     <textarea name="descripcion"><?= htmlspecialchars($propiedad['descripcion'] ?? '') ?></textarea><br>
 
     <button type="submit">Actualizar</button>
-    <a href="../../../public/index.php?action=propiedades">Cancelar</a>
+    <a href="../../public/index.php?action=propiedades">Cancelar</a>
 </form>
 
 <script>
@@ -98,5 +91,4 @@ function validarPropiedad() {
 }
 </script>
 
-</body>
-</html>
+<?php include_once __DIR__ . '/../layouts/footer.php'; ?>

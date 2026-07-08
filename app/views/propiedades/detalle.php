@@ -1,16 +1,8 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+include_once __DIR__ . '/../layouts/header.php';
+
 $propiedad = $propiedad ?? [];
-$rol = $_SESSION['rol'] ?? 'Inquilino';
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Detalle de propiedad - InmoCasa</title>
-<link rel="stylesheet" href="../../../public/css/style.css">
-</head>
-<body>
 
 <h1>Detalle de propiedad</h1>
 
@@ -23,11 +15,10 @@ $rol = $_SESSION['rol'] ?? 'Inquilino';
 <p><strong>Descripción:</strong><br><?= nl2br(htmlspecialchars($propiedad['descripcion'] ?? '')) ?></p>
 
 <p>
-    <a href="../../../public/index.php?action=propiedades">Volver</a>
+    <a href="../../public/index.php?action=propiedades">Volver</a>
     <?php if ($rol === 'Admin'): ?>
-        | <a href="../../../public/index.php?action=propiedad_editar&id=<?= $propiedad['id'] ?? '' ?>">Editar</a>
+        | <a href="../../public/index.php?action=propiedad_editar&id=<?= $propiedad['id'] ?? '' ?>">Editar</a>
     <?php endif; ?>
 </p>
 
-</body>
-</html>
+<?php include_once __DIR__ . '/../layouts/footer.php'; ?>

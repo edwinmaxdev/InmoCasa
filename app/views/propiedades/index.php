@@ -1,28 +1,13 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-$rol = $_SESSION['rol'] ?? 'Inquilino';
+include_once __DIR__ . '/../layouts/header.php';
+
 $tipos = $tipos ?? [];
 $propiedades = $propiedades ?? [];
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Propiedades - InmoCasa</title>
-<link rel="stylesheet" href="../../../public/css/style.css">
-</head>
-<body>
 
 <h1>Propiedades</h1>
 
-<?php if(isset($_GET['mensaje'])): ?>
-    <p style="color:green;"><?= htmlspecialchars($_GET['mensaje']) ?></p>
-<?php endif; ?>
-<?php if(isset($_GET['error'])): ?>
-    <p style="color:red;"><?= htmlspecialchars($_GET['error']) ?></p>
-<?php endif; ?>
-
-<form method="get" action="../../../public/index.php">
+<form method="get" action="../../public/index.php">
     <input type="hidden" name="action" value="propiedades">
 
     <label>Estado:</label>
@@ -48,7 +33,7 @@ $propiedades = $propiedades ?? [];
 </form>
 
 <?php if ($rol === 'Admin'): ?>
-    <p><a href="../../../public/index.php?action=propiedad_crear">+ Nueva propiedad</a></p>
+    <p><a href="../../public/index.php?action=propiedad_crear">+ Nueva propiedad</a></p>
 <?php endif; ?>
 
 <table border="1" cellpadding="6">
@@ -75,10 +60,10 @@ $propiedades = $propiedades ?? [];
             <td><?= $p['metros2'] ?></td>
             <td><?= htmlspecialchars($p['estado']) ?></td>
             <td>
-                <a href="../../../public/index.php?action=propiedad_detalle&id=<?= $p['id'] ?>">Ver</a>
+                <a href="../../public/index.php?action=propiedad_detalle&id=<?= $p['id'] ?>">Ver</a>
                 <?php if ($rol === 'Admin'): ?>
-                    | <a href="../../../public/index.php?action=propiedad_editar&id=<?= $p['id'] ?>">Editar</a>
-                    | <a href="../../../public/index.php?action=propiedad_eliminar&id=<?= $p['id'] ?>"
+                    | <a href="../../public/index.php?action=propiedad_editar&id=<?= $p['id'] ?>">Editar</a>
+                    | <a href="../../public/index.php?action=propiedad_eliminar&id=<?= $p['id'] ?>"
                          onclick="return confirm('¿Eliminar esta propiedad?');">Eliminar</a>
                 <?php endif; ?>
             </td>
@@ -86,5 +71,4 @@ $propiedades = $propiedades ?? [];
     <?php endforeach; ?>
 </table>
 
-</body>
-</html>
+<?php include_once __DIR__ . '/../layouts/footer.php'; ?>

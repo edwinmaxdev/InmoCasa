@@ -33,7 +33,7 @@ $inquilino = $inquilino ?? [];
 </style>
 
 <div class="page-header">
-    <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilinos">
+    <a href="<?= BASE_URL ?>?action=inquilinos">
         <i class="fa-solid fa-arrow-left"></i> Inquilinos
     </a>
     <span class="separator">/</span>
@@ -51,7 +51,7 @@ $inquilino = $inquilino ?? [];
 
 <div class="form-card">
     <form id="formInquilino" method="POST"
-          action="http://localhost:8080/InmoCasa/public/index.php?action=inquilino_actualizar&id=<?= $inquilino['id'] ?? '' ?>"
+          action="<?= BASE_URL ?>?action=inquilino_actualizar&id=<?= $inquilino['id'] ?? '' ?>"
           novalidate>
         <div class="form-grid">
             <div class="form-group full">
@@ -86,7 +86,7 @@ $inquilino = $inquilino ?? [];
             <button type="submit" class="btn btn-primary">
                 <i class="fa-solid fa-floppy-disk"></i> Actualizar
             </button>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilinos" class="btn btn-secondary">
+            <a href="<?= BASE_URL ?>?action=inquilinos" class="btn btn-secondary">
                 <i class="fa-solid fa-xmark"></i> Cancelar
             </a>
         </div>

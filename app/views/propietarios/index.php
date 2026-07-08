@@ -31,7 +31,7 @@ $rol = $_SESSION['rol'];
 <div class="page-header">
     <div class="page-title"><i class="fa-solid fa-house-user"></i> Propietarios</div>
     <?php if ($rol === 'Admin'): ?>
-        <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietario_crear" class="btn btn-primary">
+        <a href="<?= BASE_URL ?>?action=propietario_crear" class="btn btn-primary">
             <i class="fa-solid fa-plus"></i> Nuevo propietario
         </a>
     <?php endif; ?>
@@ -61,10 +61,10 @@ $rol = $_SESSION['rol'];
                     <td><?= htmlspecialchars($p['email']) ?></td>
                     <td>
                         <div class="acciones">
-                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietario_detalle&id=<?= $p['id'] ?>" class="btn btn-sm btn-info" title="Ver"><i class="fa-solid fa-eye"></i></a>
+                            <a href="<?= BASE_URL ?>?action=propietario_detalle&id=<?= $p['id'] ?>" class="btn btn-sm btn-info" title="Ver"><i class="fa-solid fa-eye"></i></a>
                             <?php if ($rol === 'Admin'): ?>
-                                <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietario_editar&id=<?= $p['id'] ?>" class="btn btn-sm btn-warning" title="Editar"><i class="fa-solid fa-pen"></i></a>
-                                <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietario_eliminar&id=<?= $p['id'] ?>" class="btn btn-sm btn-danger" title="Eliminar" onclick="return confirm('¿Eliminar este propietario?')"><i class="fa-solid fa-trash"></i></a>
+                                <a href="<?= BASE_URL ?>?action=propietario_editar&id=<?= $p['id'] ?>" class="btn btn-sm btn-warning" title="Editar"><i class="fa-solid fa-pen"></i></a>
+                                <a href="<?= BASE_URL ?>?action=propietario_eliminar&id=<?= $p['id'] ?>" class="btn btn-sm btn-danger" title="Eliminar" onclick="return confirm('¿Eliminar este propietario?')"><i class="fa-solid fa-trash"></i></a>
                             <?php endif; ?>
                         </div>
                     </td>

@@ -12,7 +12,7 @@ $propiedadModelo = new Propiedad();
 $totalContratosActivos  = $contratoModelo->contarActivos();
 $totalPagosPendientes   = $pagoModelo->contarPendientes();
 $totalPropDisponibles   = $propiedadModelo->contarDisponibles();
-$proximosAVencer        = $contratoModelo->obtenerProximosAVencer();
+$proximosAVencer        = $contratoModelo->obtenerProximosAVencer($_SESSION['rol'], $_SESSION['rol'] === 'Propietario' ? $_SESSION['propietario_id'] : ($_SESSION['rol'] === 'Inquilino' ? $_SESSION['inquilino_id'] : null));
 
 // Para Admin también mostramos usuarios
 if ($_SESSION['rol'] === 'Admin') {
@@ -285,7 +285,7 @@ if ($_SESSION['rol'] === 'Admin') {
             <div class="card-value"><?= $totalPropDisponibles ?></div>
             <div class="card-label">Propiedades disponibles</div>
             <?php if ($_SESSION['rol'] === 'Admin' || $_SESSION['rol'] === 'Propietario'): ?>
-                <a href="../../public/index.php?action=propiedades" class="card-link">Ver todas →</a>
+                <a href="<?= BASE_URL ?>?action=propiedades" class="card-link">Ver todas →</a>
             <?php endif; ?>
         </div>
     </div>
@@ -297,7 +297,7 @@ if ($_SESSION['rol'] === 'Admin') {
         <div class="card-info">
             <div class="card-value"><?= $totalContratosActivos ?></div>
             <div class="card-label">Contratos activos</div>
-            <a href="../../public/index.php?action=contratos" class="card-link">Ver todos →</a>
+            <a href="<?= BASE_URL ?>?action=contratos" class="card-link">Ver todos →</a>
         </div>
     </div>
 
@@ -308,7 +308,7 @@ if ($_SESSION['rol'] === 'Admin') {
         <div class="card-info">
             <div class="card-value"><?= count($proximosAVencer) ?></div>
             <div class="card-label">Contratos por vencer</div>
-            <a href="#proximosVencer" class="card-link">Ver detalle →</a>
+            <a href="<?= BASE_URL ?>?action=contratos" class="card-link">Ver detalle →</a>
         </div>
     </div>
 
@@ -319,7 +319,7 @@ if ($_SESSION['rol'] === 'Admin') {
         <div class="card-info">
             <div class="card-value"><?= $totalPagosPendientes ?></div>
             <div class="card-label">Pagos pendientes</div>
-            <a href="../../public/index.php?action=pagos" class="card-link">Ver todos →</a>
+            <a href="<?= BASE_URL ?>?action=pagos" class="card-link">Ver todos →</a>
         </div>
     </div>
 
@@ -331,7 +331,7 @@ if ($_SESSION['rol'] === 'Admin') {
             <div class="card-info">
                 <div class="card-value"><?= $totalUsuarios ?></div>
                 <div class="card-label">Usuarios registrados</div>
-                <a href="../../public/index.php?action=usuarios" class="card-link">Gestionar →</a>
+                <a href="<?= BASE_URL ?>?action=usuarios" class="card-link">Gestionar →</a>
             </div>
         </div>
     <?php endif; ?>
@@ -377,7 +377,7 @@ if ($_SESSION['rol'] === 'Admin') {
                                 </span>
                             </td>
                             <td>
-                                <a href="../../public/index.php?action=contrato_detalle&id=<?= $c['id'] ?>"
+                                <a href="<?= BASE_URL ?>?action=contrato_detalle&id=<?= $c['id'] ?>"
                                     class="card-link">
                                     <i class="fa-solid fa-eye"></i> Ver
                                 </a>

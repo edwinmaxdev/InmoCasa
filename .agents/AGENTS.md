@@ -1,0 +1,2 @@
+- No generar comentarios en los archivos de código fuente.
+- No compartir código ni bloques de código en el chat con el usuario.

@@ -265,7 +265,7 @@ $mensaje = $_GET['mensaje'] ?? '';
                 </div>
             <?php endif; ?>
 
-            <form action="http://localhost:8080/InmoCasa/public/index.php?action=procesarLogin" method="POST" novalidate id="loginForm">
+            <form action="<?= BASE_URL ?>?action=procesarLogin" method="POST" novalidate id="loginForm">
 
                 <div class="form-group">
                     <label for="email">Correo electrónico</label>

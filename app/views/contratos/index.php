@@ -41,7 +41,7 @@ $proximosAVencer = $proximosAVencer ?? [];
 <div class="page-header">
     <div class="page-title"><i class="fa-solid fa-file-contract"></i> Contratos</div>
     <?php if ($rol === 'Admin'): ?>
-        <a href="http://localhost:8080/InmoCasa/public/index.php?action=contrato_crear" class="btn btn-primary">
+        <a href="<?= BASE_URL ?>?action=contrato_crear" class="btn btn-primary">
             <i class="fa-solid fa-plus"></i> Nuevo contrato
         </a>
     <?php endif; ?>
@@ -93,10 +93,10 @@ $proximosAVencer = $proximosAVencer ?? [];
                     <td><span class="badge badge-<?= strtolower($c['estado']) ?>"><?= $c['estado'] ?></span></td>
                     <td>
                         <div class="acciones">
-                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=contrato_detalle&id=<?= $c['id'] ?>" class="btn btn-sm btn-info"><i class="fa-solid fa-eye"></i></a>
+                            <a href="<?= BASE_URL ?>?action=contrato_detalle&id=<?= $c['id'] ?>" class="btn btn-sm btn-info"><i class="fa-solid fa-eye"></i></a>
                             <?php if ($rol === 'Admin'): ?>
-                                <a href="http://localhost:8080/InmoCasa/public/index.php?action=contrato_editar&id=<?= $c['id'] ?>" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen"></i></a>
-                                <a href="http://localhost:8080/InmoCasa/public/index.php?action=contrato_eliminar&id=<?= $c['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este contrato?')"><i class="fa-solid fa-trash"></i></a>
+                                <a href="<?= BASE_URL ?>?action=contrato_editar&id=<?= $c['id'] ?>" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen"></i></a>
+                                <a href="<?= BASE_URL ?>?action=contrato_eliminar&id=<?= $c['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este contrato?')"><i class="fa-solid fa-trash"></i></a>
                             <?php endif; ?>
                         </div>
                     </td>

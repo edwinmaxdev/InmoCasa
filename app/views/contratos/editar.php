@@ -33,7 +33,7 @@ $inquilinos  = $inquilinos  ?? [];
 </style>
 
 <div class="page-header">
-    <a href="http://localhost:8080/InmoCasa/public/index.php?action=contratos"><i class="fa-solid fa-arrow-left"></i> Contratos</a>
+    <a href="<?= BASE_URL ?>?action=contratos"><i class="fa-solid fa-arrow-left"></i> Contratos</a>
     <span class="separator">/</span>
     <div class="page-title"><i class="fa-solid fa-pen"></i> Editar contrato #<?= $contrato['id'] ?? '' ?></div>
 </div>
@@ -44,7 +44,7 @@ $inquilinos  = $inquilinos  ?? [];
 
 <div class="form-card">
     <form id="formContrato" method="POST"
-          action="http://localhost:8080/InmoCasa/public/index.php?action=contrato_actualizar&id=<?= $contrato['id'] ?? '' ?>"
+          action="<?= BASE_URL ?>?action=contrato_actualizar&id=<?= $contrato['id'] ?? '' ?>"
           novalidate>
         <div class="form-grid">
             <div class="form-group">
@@ -101,7 +101,7 @@ $inquilinos  = $inquilinos  ?? [];
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Actualizar contrato</button>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=contratos" class="btn btn-secondary"><i class="fa-solid fa-xmark"></i> Cancelar</a>
+            <a href="<?= BASE_URL ?>?action=contratos" class="btn btn-secondary"><i class="fa-solid fa-xmark"></i> Cancelar</a>
         </div>
     </form>
 </div>

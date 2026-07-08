@@ -5,6 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 include_once __DIR__ . '/../models/Propiedad.php';
 include_once __DIR__ . '/../models/TipoInmueble.php';
 include_once __DIR__ . '/../models/Propietario.php';
+include_once __DIR__ . '/AuthController.php';
 
 class PropiedadController {
     private $modelo;
@@ -13,22 +14,8 @@ class PropiedadController {
         $this->modelo = new Propiedad();
     }
 
-    private function verificarSession() {
-        if (!isset($_SESSION['usuario_id'])) {
-            header("Location: " . BASE_URL . "?error=session_expirada");
-            exit();
-        }
-    }
-
-    private function soloAdmin() {
-        if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'Admin') {
-            header("Location: " . BASE_URL . "?error=acceso_denegado");
-            exit();
-        }
-    }
-
     public function index() {
-        $this->verificarSession();
+        AuthController::verificarSesion();
         $rol = $_SESSION['rol'];
 
         if (isset($_GET['estado']) && $_GET['estado'] !== '') {
@@ -48,7 +35,7 @@ class PropiedadController {
     }
 
     public function detalle($id) {
-        $this->verificarSession();
+        AuthController::verificarSesion();
         $propiedad = $this->modelo->obtenerPorId($id);
 
         if (!$propiedad) {
@@ -65,8 +52,7 @@ class PropiedadController {
     }
 
     public function crear() {
-        $this->verificarSession();
-        $this->soloAdmin();
+        AuthController::verificarRol(['Admin']);
 
         $tipoModelo = new TipoInmueble();
         $tipos = $tipoModelo->obtenerTodos();
@@ -78,8 +64,7 @@ class PropiedadController {
     }
 
     public function guardar() {
-        $this->verificarSession();
-        $this->soloAdmin();
+        AuthController::verificarRol(['Admin']);
 
         $errores = [];
 
@@ -117,8 +102,7 @@ class PropiedadController {
     }
 
     public function editar($id) {
-        $this->verificarSession();
-        $this->soloAdmin();
+        AuthController::verificarRol(['Admin']);
 
         $propiedad = $this->modelo->obtenerPorId($id);
 
@@ -137,8 +121,7 @@ class PropiedadController {
     }
 
     public function actualizar($id) {
-        $this->verificarSession();
-        $this->soloAdmin();
+        AuthController::verificarRol(['Admin']);
 
         $errores = [];
 
@@ -176,8 +159,7 @@ class PropiedadController {
     }
 
     public function eliminar($id) {
-        $this->verificarSession();
-        $this->soloAdmin();
+        AuthController::verificarRol(['Admin']);
 
         $resultado = $this->modelo->eliminar($id);
 

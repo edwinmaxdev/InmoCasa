@@ -32,7 +32,8 @@ class Contrato
     {
         try {
             $sql = "SELECT c.*, 
-            p.direccion AS propiedades_direccion,
+            p.direccion AS propiedad_direccion,
+            p.propietario_id,
             i.nombre AS nombre_inquilino
             FROM contratos c
             INNER JOIN propiedades p ON c.propiedad_id = p.id
@@ -119,7 +120,7 @@ class Contrato
             return ["Exito" => false, "mensaje" => "Error de activos" . $e->getMessage()];
         }
     }
-    public function obtenerProximosAVencer()
+    public function obtenerProximosAVencer($rol = null, $id = null)
     {
         try {
             $sql = "SELECT c.*, 
@@ -130,14 +131,63 @@ class Contrato
                 INNER JOIN propiedades p ON c.propiedad_id = p.id
                 INNER JOIN inquilinos i ON c.inquilino_id = i.id
                 WHERE c.estado = 'Activo'
-                AND DATEDIFF(c.fecha_fin, CURDATE()) BETWEEN 0 AND 30
-                ORDER BY c.fecha_fin ASC";
+                AND DATEDIFF(c.fecha_fin, CURDATE()) BETWEEN 0 AND 30";
+
+            if ($rol === 'Propietario') {
+                $sql .= " AND p.propietario_id = ?";
+            } elseif ($rol === 'Inquilino') {
+                $sql .= " AND c.inquilino_id = ?";
+            }
+
+            $sql .= " ORDER BY c.fecha_fin ASC";
 
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute();
+            if ($rol === 'Propietario' || $rol === 'Inquilino') {
+                $stmt->execute([$id]);
+            } else {
+                $stmt->execute();
+            }
             return $stmt->fetchAll();
         } catch (PDOException $e) {
             return ["Exito" => false, "mensaje" => "Error de obtencion de proximo a vencer" . $e->getMessage()];
+        }
+    }
+
+    public function obtenerPorInquilino($inquilino_id)
+    {
+        try {
+            $sql = "SELECT c.*, 
+                p.direccion AS propiedad_direccion,
+                i.nombre AS nombre_inquilino
+                FROM contratos c
+                INNER JOIN propiedades p ON c.propiedad_id = p.id
+                INNER JOIN inquilinos i ON c.inquilino_id = i.id
+                WHERE c.inquilino_id = ?
+                ORDER BY c.created_at DESC";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$inquilino_id]);
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            return ["Exito" => false, "mensaje" => "Error de obtener por inquilino" . $e->getMessage()];
+        }
+    }
+
+    public function obtenerPorPropietario($propietario_id)
+    {
+        try {
+            $sql = "SELECT c.*, 
+                p.direccion AS propiedad_direccion,
+                i.nombre AS nombre_inquilino
+                FROM contratos c
+                INNER JOIN propiedades p ON c.propiedad_id = p.id
+                INNER JOIN inquilinos i ON c.inquilino_id = i.id
+                WHERE p.propietario_id = ?
+                ORDER BY c.created_at DESC";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$propietario_id]);
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            return ["Exito" => false, "mensaje" => "Error de obtener por propietario" . $e->getMessage()];
         }
     }
     public function contarActivos()

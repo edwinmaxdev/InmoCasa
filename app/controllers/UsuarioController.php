@@ -78,8 +78,8 @@ class UsuarioController {
             'email'          => trim($_POST['email']),
             'password'       => $_POST['password'],
             'rol'            => $_POST['rol'],
-            'propietario_id' => $_POST['propietario_id'] ?? null,
-            'inquilino_id'   => $_POST['inquilino_id']   ?? null
+            'propietario_id' => (isset($_POST['propietario_id']) && $_POST['propietario_id'] !== '') ? $_POST['propietario_id'] : null,
+            'inquilino_id'   => (isset($_POST['inquilino_id']) && $_POST['inquilino_id'] !== '') ? $_POST['inquilino_id'] : null
         ];
 
         $resultado = $this->modelo->crear($datos);
@@ -141,8 +141,8 @@ class UsuarioController {
             'email'          => trim($_POST['email']),
             'password'       => $_POST['password'] ?? '',
             'rol'            => $_POST['rol'],
-            'propietario_id' => $_POST['propietario_id'] ?? null,
-            'inquilino_id'   => $_POST['inquilino_id']   ?? null
+            'propietario_id' => (isset($_POST['propietario_id']) && $_POST['propietario_id'] !== '') ? $_POST['propietario_id'] : null,
+            'inquilino_id'   => (isset($_POST['inquilino_id']) && $_POST['inquilino_id'] !== '') ? $_POST['inquilino_id'] : null
         ];
 
         $resultado = $this->modelo->actualizar($id, $datos);

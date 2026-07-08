@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if (!isset($_SESSION['usuario_id'])) {
-    header('Location: http://localhost:8080/InmoCasa/public/index.php?action=login');
+    header('Location: ' . BASE_URL . '?action=login');
     exit();
 }
 $rol    = $_SESSION['rol'];
@@ -17,7 +17,7 @@ $nombre = $_SESSION['nombre'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InmoCasa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="<?= dirname(BASE_URL) ?>/css/style.css">
     <style>
         * {
             margin: 0;
@@ -237,7 +237,7 @@ $nombre = $_SESSION['nombre'];
 <body>
 
     <nav class="navbar">
-        <a href="http://localhost:8080/InmoCasa/public/index.php?action=dashboard" class="navbar-brand">
+        <a href="<?= BASE_URL ?>?action=dashboard" class="navbar-brand">
             Inmo<span>Casa</span>
         </a>
 
@@ -245,7 +245,7 @@ $nombre = $_SESSION['nombre'];
 
             <!-- Dashboard — todos los roles -->
             <li>
-                <a href="http://localhost:8080/InmoCasa/public/index.php?action=dashboard"
+                <a href="<?= BASE_URL ?>?action=dashboard"
                     class="<?= ($_GET['action'] ?? '') === 'dashboard' ? 'active' : '' ?>">
                     <i class="fa-solid fa-gauge"></i> Dashboard
                 </a>
@@ -255,7 +255,7 @@ $nombre = $_SESSION['nombre'];
 
             <?php if ($rol === 'Admin' || $rol === 'Propietario'): ?>
                 <li>
-                    <a href="http://localhost:8080/InmoCasa/public/index.php?action=propiedades"
+                    <a href="<?= BASE_URL ?>?action=propiedades"
                         class="<?= ($_GET['action'] ?? '') === 'propiedades' ? 'active' : '' ?>">
                         <i class="fa-solid fa-house"></i> Propiedades
                     </a>
@@ -264,7 +264,7 @@ $nombre = $_SESSION['nombre'];
 
             <?php if ($rol === 'Admin'): ?>
                 <li>
-                    <a href="http://localhost:8080/InmoCasa/public/index.php?action=tipos"
+                    <a href="<?= BASE_URL ?>?action=tipos"
                         class="<?= ($_GET['action'] ?? '') === 'tipos' ? 'active' : '' ?>">
                         <i class="fa-solid fa-tags"></i> Tipos
                     </a>
@@ -273,13 +273,13 @@ $nombre = $_SESSION['nombre'];
                 <div class="nav-divider"></div>
 
                 <li>
-                    <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietarios"
+                    <a href="<?= BASE_URL ?>?action=propietarios"
                         class="<?= ($_GET['action'] ?? '') === 'propietarios' ? 'active' : '' ?>">
                         <i class="fa-solid fa-house-user"></i> Propietarios
                     </a>
                 </li>
                 <li>
-                    <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilinos"
+                    <a href="<?= BASE_URL ?>?action=inquilinos"
                         class="<?= ($_GET['action'] ?? '') === 'inquilinos' ? 'active' : '' ?>">
                         <i class="fa-solid fa-people-roof"></i> Inquilinos
                     </a>
@@ -289,13 +289,13 @@ $nombre = $_SESSION['nombre'];
             <?php endif; ?>
 
             <li>
-                <a href="http://localhost:8080/InmoCasa/public/index.php?action=contratos"
+                <a href="<?= BASE_URL ?>?action=contratos"
                     class="<?= ($_GET['action'] ?? '') === 'contratos' ? 'active' : '' ?>">
                     <i class="fa-solid fa-file-contract"></i> Contratos
                 </a>
             </li>
             <li>
-                <a href="http://localhost:8080/InmoCasa/public/index.php?action=pagos"
+                <a href="<?= BASE_URL ?>?action=pagos"
                     class="<?= ($_GET['action'] ?? '') === 'pagos' ? 'active' : '' ?>">
                     <i class="fa-solid fa-credit-card"></i> Pagos
                 </a>
@@ -304,7 +304,7 @@ $nombre = $_SESSION['nombre'];
             <?php if ($rol === 'Admin'): ?>
                 <div class="nav-divider"></div>
                 <li>
-                    <a href="http://localhost:8080/InmoCasa/public/index.php?action=usuarios"
+                    <a href="<?= BASE_URL ?>?action=usuarios"
                         class="<?= ($_GET['action'] ?? '') === 'usuarios' ? 'active' : '' ?>">
                         <i class="fa-solid fa-users-gear"></i> Usuarios
                     </a>
@@ -319,7 +319,7 @@ $nombre = $_SESSION['nombre'];
                 <i class="fa-solid fa-circle-user"></i>
                 <?= htmlspecialchars($nombre) ?>
             </span>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=logout" class="btn-logout">
+            <a href="<?= BASE_URL ?>?action=logout" class="btn-logout">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 Salir
             </a>

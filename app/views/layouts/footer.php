@@ -55,22 +55,22 @@
 
         <ul class="footer-links">
             <li>
-                <a href="../../public/index.php?action=dashboard">
+                <a href="<?= BASE_URL ?>?action=dashboard">
                     <i class="fa-solid fa-gauge"></i> Dashboard
                 </a>
             </li>
             <li>
-                <a href="../../public/index.php?action=propiedades">
+                <a href="<?= BASE_URL ?>?action=propiedades">
                     <i class="fa-solid fa-house"></i> Propiedades
                 </a>
             </li>
             <li>
-                <a href="../../public/index.php?action=contratos">
+                <a href="<?= BASE_URL ?>?action=contratos">
                     <i class="fa-solid fa-file-contract"></i> Contratos
                 </a>
             </li>
             <li>
-                <a href="../../public/index.php?action=pagos">
+                <a href="<?= BASE_URL ?>?action=pagos">
                     <i class="fa-solid fa-credit-card"></i> Pagos
                 </a>
             </li>

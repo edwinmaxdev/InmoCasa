@@ -205,7 +205,7 @@ $totalVencido  = array_sum(array_column(array_filter($pagos, fn($p) => $p['estad
 
 <!-- Breadcrumb -->
 <div class="page-header">
-    <a href="http://localhost:8080/InmoCasa/public/index.php?action=pagos">
+    <a href="<?= BASE_URL ?>?action=pagos">
         <i class="fa-solid fa-arrow-left"></i> Pagos
     </a>
     <span class="separator">/</span>

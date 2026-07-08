@@ -1,6 +1,7 @@
 <?php include_once __DIR__ . '/../layouts/header.php'; ?>
 <?php
-$propietarios = $propietarios ?? [];
+$propiedades = $propiedades ?? [];
+$tipos = $tipos ?? [];
 $rol = $_SESSION['rol'];
 ?>
 
@@ -18,21 +19,28 @@ $rol = $_SESSION['rol'];
     .table-toolbar { padding: 1rem 1.25rem; border-bottom: 1px solid #f3f4f6; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
     .search-box { display: flex; align-items: center; gap: 0.5rem; background: #f8fafc; border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 0.45rem 0.85rem; }
     .search-box input { border: none; background: none; outline: none; font-size: 0.875rem; color: #1a2e44; width: 220px; }
+    .filters { display: flex; gap: 0.5rem; align-items: center; }
+    .filter-select { padding: 0.45rem 0.85rem; border: 1.5px solid #e5e7eb; border-radius: 8px; font-size: 0.875rem; background: #fff; color: #374151; outline: none; }
     table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
     thead { background: #f8fafc; border-bottom: 1px solid #e5e7eb; }
     th { padding: 0.75rem 1rem; text-align: left; font-weight: 600; color: #374151; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.4px; }
     td { padding: 0.75rem 1rem; color: #4b5563; border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
     tr:last-child td { border-bottom: none; } tr:hover td { background: #f9fafb; }
     .acciones { display: flex; gap: 0.4rem; }
+    .badge { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; }
+    .badge-disponible { background: #dcfce7; color: #15803d; }
+    .badge-arrendada { background: #dbeafe; color: #1d4ed8; }
+    .badge-venta { background: #fef3c7; color: #b45309; }
+    .badge-vendida { background: #f3f4f6; color: #4b5563; }
     .empty-state { text-align: center; padding: 3rem; color: #9ca3af; }
     .empty-state i { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; color: #d1d5db; }
 </style>
 
 <div class="page-header">
-    <div class="page-title"><i class="fa-solid fa-house-user"></i> Propietarios</div>
+    <div class="page-title"><i class="fa-solid fa-house"></i> Propiedades</div>
     <?php if ($rol === 'Admin'): ?>
-        <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietario_crear" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Nuevo propietario
+        <a href="<?= BASE_URL ?>?action=propiedad_crear" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Nueva propiedad
         </a>
     <?php endif; ?>
 </div>
@@ -41,30 +49,64 @@ $rol = $_SESSION['rol'];
     <div class="table-toolbar">
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af"></i>
-            <input type="text" id="buscador" placeholder="Buscar por nombre o cédula..." onkeyup="filtrarTabla()">
+            <input type="text" id="buscador" placeholder="Buscar dirección..." onkeyup="filtrarTabla()">
+        </div>
+        <div class="filters">
+            <select class="filter-select" id="filtroEstado" onchange="aplicarFiltros()">
+                <option value="">Todos los estados</option>
+                <option value="Disponible">Disponible</option>
+                <option value="Arrendada">Arrendada</option>
+                <option value="En venta">En venta</option>
+                <option value="Vendida">Vendida</option>
+            </select>
+            <select class="filter-select" id="filtroTipo" onchange="aplicarFiltros()">
+                <option value="">Todos los tipos</option>
+                <?php foreach ($tipos as $t): ?>
+                    <option value="<?= htmlspecialchars($t['nombre']) ?>"><?= htmlspecialchars($t['nombre']) ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
     </div>
-    <?php if (empty($propietarios)): ?>
-        <div class="empty-state"><i class="fa-solid fa-users-slash"></i> No hay propietarios registrados</div>
+    <?php if (empty($propiedades)): ?>
+        <div class="empty-state"><i class="fa-solid fa-house-circle-xmark"></i> No hay propiedades registradas</div>
     <?php else: ?>
-        <table id="tablaPropietarios">
+        <table id="tablaPropiedades">
             <thead>
-                <tr><th>#</th><th>Nombre</th><th>Cédula</th><th>Teléfono</th><th>Email</th><th>Acciones</th></tr>
+                <tr>
+                    <th>#</th>
+                    <th>Dirección</th>
+                    <th>Tipo</th>
+                    <th>Propietario</th>
+                    <th>Precio</th>
+                    <th>Metros²</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
             </thead>
             <tbody>
-                <?php foreach ($propietarios as $p): ?>
+                <?php foreach ($propiedades as $p): ?>
                 <tr>
                     <td><?= $p['id'] ?></td>
-                    <td><?= htmlspecialchars($p['nombre']) ?></td>
-                    <td><?= htmlspecialchars($p['cedula']) ?></td>
-                    <td><?= htmlspecialchars($p['telefono'] ?? '—') ?></td>
-                    <td><?= htmlspecialchars($p['email']) ?></td>
+                    <td><?= htmlspecialchars($p['direccion']) ?></td>
+                    <td><?= htmlspecialchars($p['tipo_nombre']) ?></td>
+                    <td><?= htmlspecialchars($p['propietario_nombre']) ?></td>
+                    <td>$<?= number_format($p['precio'], 2) ?></td>
+                    <td><?= number_format($p['metros2'], 2) ?> m²</td>
+                    <td>
+                        <?php
+                        $badgeClass = 'badge-disponible';
+                        if ($p['estado'] === 'Arrendada') $badgeClass = 'badge-arrendada';
+                        elseif ($p['estado'] === 'En venta') $badgeClass = 'badge-venta';
+                        elseif ($p['estado'] === 'Vendida') $badgeClass = 'badge-vendida';
+                        ?>
+                        <span class="badge <?= $badgeClass ?>"><?= htmlspecialchars($p['estado']) ?></span>
+                    </td>
                     <td>
                         <div class="acciones">
-                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietario_detalle&id=<?= $p['id'] ?>" class="btn btn-sm btn-info" title="Ver"><i class="fa-solid fa-eye"></i></a>
+                            <a href="<?= BASE_URL ?>?action=propiedad_detalle&id=<?= $p['id'] ?>" class="btn btn-sm btn-info" title="Ver"><i class="fa-solid fa-eye"></i></a>
                             <?php if ($rol === 'Admin'): ?>
-                                <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietario_editar&id=<?= $p['id'] ?>" class="btn btn-sm btn-warning" title="Editar"><i class="fa-solid fa-pen"></i></a>
-                                <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietario_eliminar&id=<?= $p['id'] ?>" class="btn btn-sm btn-danger" title="Eliminar" onclick="return confirm('¿Eliminar este propietario?')"><i class="fa-solid fa-trash"></i></a>
+                                <a href="<?= BASE_URL ?>?action=propiedad_editar&id=<?= $p['id'] ?>" class="btn btn-sm btn-warning" title="Editar"><i class="fa-solid fa-pen"></i></a>
+                                <a href="<?= BASE_URL ?>?action=propiedad_eliminar&id=<?= $p['id'] ?>" class="btn btn-sm btn-danger" title="Eliminar" onclick="return confirm('¿Eliminar esta propiedad?')"><i class="fa-solid fa-trash"></i></a>
                             <?php endif; ?>
                         </div>
                     </td>
@@ -77,9 +119,28 @@ $rol = $_SESSION['rol'];
 
 <script>
 function filtrarTabla() {
+    aplicarFiltros();
+}
+
+function aplicarFiltros() {
     const buscar = document.getElementById('buscador').value.toLowerCase();
-    document.querySelectorAll('#tablaPropietarios tbody tr').forEach(fila => {
-        fila.style.display = fila.textContent.toLowerCase().includes(buscar) ? '' : 'none';
+    const estado = document.getElementById('filtroEstado').value.toLowerCase();
+    const tipo = document.getElementById('filtroTipo').value.toLowerCase();
+
+    document.querySelectorAll('#tablaPropiedades tbody tr').forEach(fila => {
+        const cDireccion = fila.cells[1].textContent.toLowerCase();
+        const cTipo = fila.cells[2].textContent.toLowerCase();
+        const cEstado = fila.cells[6].textContent.toLowerCase();
+
+        const matchBuscar = cDireccion.includes(buscar);
+        const matchEstado = !estado || cEstado.trim() === estado.trim();
+        const matchTipo = !tipo || cTipo.trim() === tipo.trim();
+
+        if (matchBuscar && matchEstado && matchTipo) {
+            fila.style.display = '';
+        } else {
+            fila.style.display = 'none';
+        }
     });
 }
 </script>

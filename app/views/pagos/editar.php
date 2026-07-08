@@ -142,7 +142,7 @@ $contratos = $contratos ?? [];
 
 <!-- Breadcrumb -->
 <div class="page-header">
-    <a href="http://localhost:8080/InmoCasa/public/index.php?action=pagos">
+    <a href="<?= BASE_URL ?>?action=pagos">
         <i class="fa-solid fa-arrow-left"></i> Pagos
     </a>
     <span class="separator">/</span>
@@ -167,7 +167,7 @@ $contratos = $contratos ?? [];
 <!-- Formulario -->
 <div class="form-card">
     <form id="formPago" method="POST"
-          action="http://localhost:8080/InmoCasa/public/index.php?action=pago_actualizar&id=<?= $pago['id'] ?? '' ?>"
+          action="<?= BASE_URL ?>?action=pago_actualizar&id=<?= $pago['id'] ?? '' ?>"
           novalidate>
 
         <div class="form-grid">
@@ -254,7 +254,7 @@ $contratos = $contratos ?? [];
                 <i class="fa-solid fa-floppy-disk"></i>
                 Actualizar pago
             </button>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=pagos" class="btn btn-secondary">
+            <a href="<?= BASE_URL ?>?action=pagos" class="btn btn-secondary">
                 <i class="fa-solid fa-xmark"></i>
                 Cancelar
             </a>

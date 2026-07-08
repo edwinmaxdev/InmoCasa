@@ -24,7 +24,7 @@
 <div class="page-header">
     <div class="page-title"><i class="fa-solid fa-tags"></i> Tipos de Inmueble</div>
     <?php if ($rol === 'Admin'): ?>
-        <a href="http://localhost:8080/InmoCasa/public/index.php?action=tipo_crear" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nuevo tipo</a>
+        <a href="<?= BASE_URL ?>?action=tipo_crear" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nuevo tipo</a>
     <?php endif; ?>
 </div>
 
@@ -43,8 +43,8 @@
                     <?php if ($rol === 'Admin'): ?>
                     <td>
                         <div class="acciones">
-                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=tipo_editar&id=<?= $t['id'] ?>" class="btn btn-sm btn-warning" title="Editar"><i class="fa-solid fa-pen"></i></a>
-                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=tipo_eliminar&id=<?= $t['id'] ?>" class="btn btn-sm btn-danger" title="Eliminar" onclick="return confirm('¿Eliminar este tipo?')"><i class="fa-solid fa-trash"></i></a>
+                            <a href="<?= BASE_URL ?>?action=tipo_editar&id=<?= $t['id'] ?>" class="btn btn-sm btn-warning" title="Editar"><i class="fa-solid fa-pen"></i></a>
+                            <a href="<?= BASE_URL ?>?action=tipo_eliminar&id=<?= $t['id'] ?>" class="btn btn-sm btn-danger" title="Eliminar" onclick="return confirm('¿Eliminar este tipo?')"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </td>
                     <?php endif; ?>

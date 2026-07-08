@@ -17,16 +17,22 @@ class ContratoController {
     public function index() {
         AuthController::verificarSesion();
 
-        if ($_SESSION['rol'] === 'Admin') {
+        $rol = $_SESSION['rol'];
+        $propietario_id = $_SESSION['propietario_id'] ?? null;
+        $inquilino_id = $_SESSION['inquilino_id'] ?? null;
+
+        if ($rol === 'Admin') {
             $contratos = $this->modelo->obtenerTodos();
-        } elseif ($_SESSION['rol'] === 'Inquilino') {
-            $contratos = $this->modelo->obtenerPorInquilino($_SESSION['inquilino_id']);
+        } elseif ($rol === 'Inquilino') {
+            $contratos = $this->modelo->obtenerPorInquilino($inquilino_id);
+        } elseif ($rol === 'Propietario') {
+            $contratos = $this->modelo->obtenerPorPropietario($propietario_id);
         } else {
             header("Location: " . BASE_URL . "?error=acceso_denegado");
             exit();
         }
 
-        $proximosAVencer = $this->modelo->obtenerProximosAVencer();
+        $proximosAVencer = $this->modelo->obtenerProximosAVencer($rol, $rol === 'Propietario' ? $propietario_id : ($rol === 'Inquilino' ? $inquilino_id : null));
         include_once __DIR__ . '/../views/contratos/index.php';
     }
 
@@ -40,6 +46,11 @@ class ContratoController {
         }
 
         if ($_SESSION['rol'] === 'Inquilino' && $contrato['inquilino_id'] != $_SESSION['inquilino_id']) {
+            header("Location: " . BASE_URL . "?error=acceso_denegado");
+            exit();
+        }
+
+        if ($_SESSION['rol'] === 'Propietario' && $contrato['propietario_id'] != $_SESSION['propietario_id']) {
             header("Location: " . BASE_URL . "?error=acceso_denegado");
             exit();
         }

@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 //  InmoCasa - Punto de entrada principal
 // =====================================================
 
-define('BASE_URL', 'http://localhost:8080/InmoCasa/public/index.php');
+define('BASE_URL', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']);
 
 $action = $_GET['action'] ?? 'login';
 

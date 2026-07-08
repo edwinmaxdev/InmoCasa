@@ -30,7 +30,7 @@ $rol = $_SESSION['rol'];
 
 <div class="page-header">
     <div class="breadcrumb">
-        <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilinos">
+        <a href="<?= BASE_URL ?>?action=inquilinos">
             <i class="fa-solid fa-arrow-left"></i> Inquilinos
         </a>
         <span class="separator">/</span>
@@ -41,11 +41,11 @@ $rol = $_SESSION['rol'];
     </div>
     <?php if ($rol === 'Admin'): ?>
         <div class="acciones">
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilino_editar&id=<?= $inquilino['id'] ?>"
+            <a href="<?= BASE_URL ?>?action=inquilino_editar&id=<?= $inquilino['id'] ?>"
                class="btn btn-warning">
                 <i class="fa-solid fa-pen"></i> Editar
             </a>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilino_eliminar&id=<?= $inquilino['id'] ?>"
+            <a href="<?= BASE_URL ?>?action=inquilino_eliminar&id=<?= $inquilino['id'] ?>"
                class="btn btn-danger"
                onclick="return confirm('¿Eliminar este inquilino?')">
                 <i class="fa-solid fa-trash"></i> Eliminar

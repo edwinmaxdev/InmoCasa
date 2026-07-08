@@ -26,7 +26,7 @@
 </style>
 
 <div class="page-header">
-    <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietarios"><i class="fa-solid fa-arrow-left"></i> Propietarios</a>
+    <a href="<?= BASE_URL ?>?action=propietarios"><i class="fa-solid fa-arrow-left"></i> Propietarios</a>
     <span class="separator">/</span>
     <div class="page-title"><i class="fa-solid fa-pen"></i> Editar propietario #<?= $propietario['id'] ?? '' ?></div>
 </div>
@@ -36,7 +36,7 @@
 <?php endif; ?>
 
 <div class="form-card">
-    <form id="formPropietario" method="POST" action="http://localhost:8080/InmoCasa/public/index.php?action=propietario_actualizar&id=<?= $propietario['id'] ?? '' ?>" novalidate>
+    <form id="formPropietario" method="POST" action="<?= BASE_URL ?>?action=propietario_actualizar&id=<?= $propietario['id'] ?? '' ?>" novalidate>
         <div class="form-grid">
             <div class="form-group full">
                 <label>Nombre completo <span class="required">*</span></label>
@@ -64,7 +64,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Actualizar</button>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=propietarios" class="btn btn-secondary"><i class="fa-solid fa-xmark"></i> Cancelar</a>
+            <a href="<?= BASE_URL ?>?action=propietarios" class="btn btn-secondary"><i class="fa-solid fa-xmark"></i> Cancelar</a>
         </div>
     </form>
 </div>

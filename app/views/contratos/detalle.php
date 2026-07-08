@@ -40,14 +40,14 @@
 
 <div class="page-header">
     <div class="breadcrumb">
-        <a href="http://localhost:8080/InmoCasa/public/index.php?action=contratos"><i class="fa-solid fa-arrow-left"></i> Contratos</a>
+        <a href="<?= BASE_URL ?>?action=contratos"><i class="fa-solid fa-arrow-left"></i> Contratos</a>
         <span class="separator">/</span>
         <div class="page-title"><i class="fa-solid fa-file-contract"></i> Contrato #<?= $contrato['id'] ?? '' ?></div>
     </div>
     <?php if ($rol === 'Admin'): ?>
         <div class="acciones">
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=contrato_editar&id=<?= $contrato['id'] ?>" class="btn btn-warning"><i class="fa-solid fa-pen"></i> Editar</a>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=contrato_eliminar&id=<?= $contrato['id'] ?>" class="btn btn-danger" onclick="return confirm('¿Eliminar este contrato?')"><i class="fa-solid fa-trash"></i> Eliminar</a>
+            <a href="<?= BASE_URL ?>?action=contrato_editar&id=<?= $contrato['id'] ?>" class="btn btn-warning"><i class="fa-solid fa-pen"></i> Editar</a>
+            <a href="<?= BASE_URL ?>?action=contrato_eliminar&id=<?= $contrato['id'] ?>" class="btn btn-danger" onclick="return confirm('¿Eliminar este contrato?')"><i class="fa-solid fa-trash"></i> Eliminar</a>
         </div>
     <?php endif; ?>
 </div>
@@ -84,7 +84,7 @@
         <div class="card-header">
             <i class="fa-solid fa-credit-card"></i> Pagos del contrato
             <?php if ($rol === 'Admin'): ?>
-                <a href="http://localhost:8080/InmoCasa/public/index.php?action=pago_crear&contrato_id=<?= $contrato['id'] ?>" style="margin-left:auto;font-size:0.8rem;color:#4da6ff;text-decoration:none;font-weight:500;">
+                <a href="<?= BASE_URL ?>?action=pago_crear&contrato_id=<?= $contrato['id'] ?>" style="margin-left:auto;font-size:0.8rem;color:#4da6ff;text-decoration:none;font-weight:500;">
                     <i class="fa-solid fa-plus"></i> Registrar pago
                 </a>
             <?php endif; ?>
@@ -109,8 +109,8 @@
                         <td><span class="badge badge-<?= strtolower($p['estado']) ?>"><?= $p['estado'] ?></span></td>
                         <?php if ($rol === 'Admin'): ?>
                         <td>
-                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=pago_editar&id=<?= $p['id'] ?>" class="btn btn-warning" style="padding:0.3rem 0.7rem;font-size:0.78rem"><i class="fa-solid fa-pen"></i></a>
-                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=pago_eliminar&id=<?= $p['id'] ?>" class="btn btn-danger" style="padding:0.3rem 0.7rem;font-size:0.78rem" onclick="return confirm('¿Eliminar este pago?')"><i class="fa-solid fa-trash"></i></a>
+                            <a href="<?= BASE_URL ?>?action=pago_editar&id=<?= $p['id'] ?>" class="btn btn-warning" style="padding:0.3rem 0.7rem;font-size:0.78rem"><i class="fa-solid fa-pen"></i></a>
+                            <a href="<?= BASE_URL ?>?action=pago_eliminar&id=<?= $p['id'] ?>" class="btn btn-danger" style="padding:0.3rem 0.7rem;font-size:0.78rem" onclick="return confirm('¿Eliminar este pago?')"><i class="fa-solid fa-trash"></i></a>
                         </td>
                         <?php endif; ?>
                     </tr>

@@ -162,7 +162,7 @@ $inquilinos   = $inquilinos   ?? [];
 
 <!-- Breadcrumb -->
 <div class="page-header">
-    <a href="http://localhost:8080/InmoCasa/public/index.php?action=usuarios">
+    <a href="<?= BASE_URL ?>?action=usuarios">
         <i class="fa-solid fa-arrow-left"></i> Usuarios
     </a>
     <span class="separator">/</span>
@@ -187,7 +187,7 @@ $inquilinos   = $inquilinos   ?? [];
 <!-- Formulario -->
 <div class="form-card">
     <form id="formUsuario" method="POST"
-          action="http://localhost:8080/InmoCasa/public/index.php?action=usuario_guardar"
+          action="<?= BASE_URL ?>?action=usuario_guardar"
           novalidate>
 
         <div class="form-grid">
@@ -292,7 +292,7 @@ $inquilinos   = $inquilinos   ?? [];
                 <i class="fa-solid fa-floppy-disk"></i>
                 Guardar usuario
             </button>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=usuarios" class="btn btn-secondary">
+            <a href="<?= BASE_URL ?>?action=usuarios" class="btn btn-secondary">
                 <i class="fa-solid fa-xmark"></i>
                 Cancelar
             </a>

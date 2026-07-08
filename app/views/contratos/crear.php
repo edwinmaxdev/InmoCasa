@@ -149,7 +149,7 @@ $inquilinos  = $inquilinos  ?? [];
 
 <!-- Encabezado con breadcrumb -->
 <div class="page-header">
-    <a href="http://localhost:8080/InmoCasa/public/index.php?action=contratos">
+    <a href="<?= BASE_URL ?>?action=contratos">
         <i class="fa-solid fa-arrow-left"></i> Contratos
     </a>
     <span class="separator">/</span>
@@ -173,7 +173,7 @@ $inquilinos  = $inquilinos  ?? [];
 
 <!-- Formulario -->
 <div class="form-card">
-    <form id="formContrato" method="POST" action="http://localhost:8080/InmoCasa/public/index.php?action=contrato_guardar" novalidate>
+    <form id="formContrato" method="POST" action="<?= BASE_URL ?>?action=contrato_guardar" novalidate>
 
         <div class="form-grid">
 
@@ -270,7 +270,7 @@ $inquilinos  = $inquilinos  ?? [];
                 <i class="fa-solid fa-floppy-disk"></i>
                 Guardar contrato
             </button>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=contratos" class="btn btn-secondary">
+            <a href="<?= BASE_URL ?>?action=contratos" class="btn btn-secondary">
                 <i class="fa-solid fa-xmark"></i>
                 Cancelar
             </a>

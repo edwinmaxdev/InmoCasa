@@ -22,7 +22,7 @@ class PagoController {
         } elseif ($_SESSION['rol'] === 'Inquilino') {
             $pagos = $this->modelo->obtenerHistorial($_SESSION['inquilino_id']);
         } else {
-            header('Location: ../../public/index.php?error=acceso_denegado');
+            header('Location: ' . BASE_URL . '?error=acceso_denegado');
             exit();
         }
 
@@ -34,7 +34,7 @@ class PagoController {
         $pago = $this->modelo->obtenerPorId($id);
 
         if (!$pago) {
-            header('Location: ../../public/index.php?action=pagos&error=no_encontrado');
+            header('Location: ' . BASE_URL . '?action=pagos&error=no_encontrado');
             exit();
         }
 
@@ -52,7 +52,7 @@ class PagoController {
 
         // Inquilino solo puede ver su propio historial
         if ($_SESSION['rol'] === 'Inquilino' && $_SESSION['inquilino_id'] != $inquilino_id) {
-            header('Location: ../../public/index.php?error=acceso_denegado');
+            header('Location: ' . BASE_URL . '?error=acceso_denegado');
             exit();
         }
 
@@ -62,6 +62,9 @@ class PagoController {
 
     public function crear() {
         AuthController::verificarRol(['Admin']);
+        include_once __DIR__ . '/../models/Contrato.php';
+        $contratoModelo = new Contrato();
+        $contratos = $contratoModelo->obtenerActivos();
         include_once __DIR__ . '/../views/pagos/crear.php';
     }
 
@@ -86,7 +89,7 @@ class PagoController {
 
         if (!empty($errores)) {
             $_SESSION['errores'] = $errores;
-            header('Location: ../../public/index.php?action=pago_crear');
+            header('Location: ' . BASE_URL . '?action=pago_crear');
             exit();
         }
 
@@ -102,10 +105,10 @@ class PagoController {
         $resultado = $this->modelo->crear($datos);
 
         if ($resultado['exito']) {
-            header('Location: ../../public/index.php?action=pagos&mensaje=creado');
+            header('Location: ' . BASE_URL . '?action=pagos&mensaje=creado');
         } else {
             $_SESSION['errores'] = [$resultado['mensaje']];
-            header('Location: ../../public/index.php?action=pago_crear');
+            header('Location: ' . BASE_URL . '?action=pago_crear');
         }
         exit();
     }
@@ -115,9 +118,13 @@ class PagoController {
         $pago = $this->modelo->obtenerPorId($id);
 
         if (!$pago) {
-            header('Location: ../../public/index.php?action=pagos&error=no_encontrado');
+            header('Location: ' . BASE_URL . '?action=pagos&error=no_encontrado');
             exit();
         }
+
+        include_once __DIR__ . '/../models/Contrato.php';
+        $contratoModelo = new Contrato();
+        $contratos = $contratoModelo->obtenerActivos();
 
         include_once __DIR__ . '/../views/pagos/editar.php';
     }
@@ -142,7 +149,7 @@ class PagoController {
 
         if (!empty($errores)) {
             $_SESSION['errores'] = $errores;
-            header("Location: ../../public/index.php?action=pago_editar&id=$id");
+            header("Location: " . BASE_URL . "?action=pago_editar&id=$id");
             exit();
         }
 
@@ -158,10 +165,10 @@ class PagoController {
         $resultado = $this->modelo->actualizar($id, $datos);
 
         if ($resultado['exito']) {
-            header('Location: ../../public/index.php?action=pagos&mensaje=actualizado');
+            header('Location: ' . BASE_URL . '?action=pagos&mensaje=actualizado');
         } else {
             $_SESSION['errores'] = [$resultado['mensaje']];
-            header("Location: ../../public/index.php?action=pago_editar&id=$id");
+            header("Location: " . BASE_URL . "?action=pago_editar&id=$id");
         }
         exit();
     }
@@ -171,9 +178,9 @@ class PagoController {
         $resultado = $this->modelo->eliminar($id);
 
         if ($resultado['exito']) {
-            header('Location: ../../public/index.php?action=pagos&mensaje=eliminado');
+            header('Location: ' . BASE_URL . '?action=pagos&mensaje=eliminado');
         } else {
-            header('Location: ../../public/index.php?action=pagos&error=no_eliminado');
+            header('Location: ' . BASE_URL . '?action=pagos&error=no_eliminado');
         }
         exit();
     }

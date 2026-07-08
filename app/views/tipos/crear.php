@@ -25,7 +25,7 @@
 </style>
 
 <div class="page-header">
-    <a href="http://localhost:8080/InmoCasa/public/index.php?action=tipos"><i class="fa-solid fa-arrow-left"></i> Tipos</a>
+    <a href="<?= BASE_URL ?>?action=tipos"><i class="fa-solid fa-arrow-left"></i> Tipos</a>
     <span class="separator">/</span>
     <div class="page-title"><i class="fa-solid fa-plus"></i> Nuevo tipo</div>
 </div>
@@ -35,7 +35,7 @@
 <?php endif; ?>
 
 <div class="form-card">
-    <form id="formTipo" method="POST" action="http://localhost:8080/InmoCasa/public/index.php?action=tipo_guardar" novalidate>
+    <form id="formTipo" method="POST" action="<?= BASE_URL ?>?action=tipo_guardar" novalidate>
         <div class="form-group">
             <label>Nombre <span class="required">*</span></label>
             <input type="text" name="nombre" placeholder="Ej: Casa, Apartamento..." value="<?= htmlspecialchars($_POST['nombre'] ?? '') ?>">
@@ -47,7 +47,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
-            <a href="http://localhost:8080/InmoCasa/public/index.php?action=tipos" class="btn btn-secondary"><i class="fa-solid fa-xmark"></i> Cancelar</a>
+            <a href="<?= BASE_URL ?>?action=tipos" class="btn btn-secondary"><i class="fa-solid fa-xmark"></i> Cancelar</a>
         </div>
     </form>
 </div>

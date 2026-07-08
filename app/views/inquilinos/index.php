@@ -135,7 +135,7 @@ $rol = $_SESSION['rol'];
         Inquilinos
     </div>
     <?php if ($rol === 'Admin'): ?>
-        <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilino_crear" class="btn btn-primary">
+        <a href="<?= BASE_URL ?>?action=inquilino_crear" class="btn btn-primary">
             <i class="fa-solid fa-plus"></i> Nuevo inquilino
         </a>
     <?php endif; ?>
@@ -178,16 +178,16 @@ $rol = $_SESSION['rol'];
                     <td><?= htmlspecialchars($i['email']) ?></td>
                     <td>
                         <div class="acciones">
-                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilino_detalle&id=<?= $i['id'] ?>"
+                            <a href="<?= BASE_URL ?>?action=inquilino_detalle&id=<?= $i['id'] ?>"
                                class="btn btn-sm btn-info" title="Ver detalle">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                             <?php if ($rol === 'Admin'): ?>
-                                <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilino_editar&id=<?= $i['id'] ?>"
+                                <a href="<?= BASE_URL ?>?action=inquilino_editar&id=<?= $i['id'] ?>"
                                    class="btn btn-sm btn-warning" title="Editar">
                                     <i class="fa-solid fa-pen"></i>
                                 </a>
-                                <a href="http://localhost:8080/InmoCasa/public/index.php?action=inquilino_eliminar&id=<?= $i['id'] ?>"
+                                <a href="<?= BASE_URL ?>?action=inquilino_eliminar&id=<?= $i['id'] ?>"
                                    class="btn btn-sm btn-danger" title="Eliminar"
                                    onclick="return confirm('¿Eliminar este inquilino?')">
                                     <i class="fa-solid fa-trash"></i>

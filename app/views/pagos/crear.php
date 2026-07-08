@@ -144,7 +144,7 @@ $contrato_id_preseleccionado = $_GET['contrato_id'] ?? '';
 
 <!-- Breadcrumb -->
 <div class="page-header">
-    <a href="../../public/index.php?action=pagos">
+    <a href="<?= BASE_URL ?>?action=pagos">
         <i class="fa-solid fa-arrow-left"></i> Pagos
     </a>
     <span class="separator">/</span>
@@ -169,7 +169,7 @@ $contrato_id_preseleccionado = $_GET['contrato_id'] ?? '';
 <!-- Formulario -->
 <div class="form-card">
     <form id="formPago" method="POST"
-          action="../../public/index.php?action=pago_guardar"
+          action="<?= BASE_URL ?>?action=pago_guardar"
           novalidate>
 
         <div class="form-grid">
@@ -256,7 +256,7 @@ $contrato_id_preseleccionado = $_GET['contrato_id'] ?? '';
                 <i class="fa-solid fa-floppy-disk"></i>
                 Guardar pago
             </button>
-            <a href="../../public/index.php?action=pagos" class="btn btn-secondary">
+            <a href="<?= BASE_URL ?>?action=pagos" class="btn btn-secondary">
                 <i class="fa-solid fa-xmark"></i>
                 Cancelar
             </a>

@@ -3,6 +3,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 include_once __DIR__ . '/../models/Usuario.php';
+include_once __DIR__ . '/../models/Propietario.php';
+include_once __DIR__ . '/../models/Inquilino.php';
 
 class UsuarioController {
 
@@ -14,14 +16,14 @@ class UsuarioController {
 
     private function soloAdmin() {
         if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'Admin') {
-            header('Location: ../../public/index.php?error=acceso_denegado');
+            header("Location: " . BASE_URL . "?error=acceso_denegado");
             exit();
         }
     }
 
     private function verificarSesion() {
         if (!isset($_SESSION['usuario_id'])) {
-            header('Location: ../../public/index.php?error=sesion_expirada');
+            header("Location: " . BASE_URL . "?action=login");
             exit();
         }
     }
@@ -36,6 +38,13 @@ class UsuarioController {
     public function crear() {
         $this->verificarSesion();
         $this->soloAdmin();
+
+        $propietarioModelo = new Propietario();
+        $propietarios = $propietarioModelo->obtenerTodos();
+
+        $inquilinoModelo = new Inquilino();
+        $inquilinos = $inquilinoModelo->obtenerTodos();
+
         include_once __DIR__ . '/../views/usuarios/crear.php';
     }
 
@@ -43,7 +52,6 @@ class UsuarioController {
         $this->verificarSesion();
         $this->soloAdmin();
 
-        // Validaciones backend
         $errores = [];
 
         if (empty($_POST['nombre']))   $errores[] = "El nombre es obligatorio";
@@ -61,7 +69,7 @@ class UsuarioController {
 
         if (!empty($errores)) {
             $_SESSION['errores'] = $errores;
-            header('Location: ../../public/index.php?action=usuario_crear');
+            header("Location: " . BASE_URL . "?action=usuario_crear");
             exit();
         }
 
@@ -77,10 +85,10 @@ class UsuarioController {
         $resultado = $this->modelo->crear($datos);
 
         if ($resultado['exito']) {
-            header('Location: ../../public/index.php?action=usuarios&mensaje=creado');
+            header("Location: " . BASE_URL . "?action=usuarios&mensaje=creado");
         } else {
             $_SESSION['errores'] = [$resultado['mensaje']];
-            header('Location: ../../public/index.php?action=usuario_crear');
+            header("Location: " . BASE_URL . "?action=usuario_crear");
         }
         exit();
     }
@@ -89,10 +97,18 @@ class UsuarioController {
         $this->verificarSesion();
         $this->soloAdmin();
         $usuario = $this->modelo->obtenerPorId($id);
+
         if (!$usuario) {
-            header('Location: ../../public/index.php?action=usuarios&error=no_encontrado');
+            header("Location: " . BASE_URL . "?action=usuarios&error=no_encontrado");
             exit();
         }
+
+        $propietarioModelo = new Propietario();
+        $propietarios = $propietarioModelo->obtenerTodos();
+
+        $inquilinoModelo = new Inquilino();
+        $inquilinos = $inquilinoModelo->obtenerTodos();
+
         include_once __DIR__ . '/../views/usuarios/editar.php';
     }
 
@@ -100,7 +116,6 @@ class UsuarioController {
         $this->verificarSesion();
         $this->soloAdmin();
 
-        // Validaciones backend
         $errores = [];
 
         if (empty($_POST['nombre']))  $errores[] = "El nombre es obligatorio";
@@ -117,7 +132,7 @@ class UsuarioController {
 
         if (!empty($errores)) {
             $_SESSION['errores'] = $errores;
-            header("Location: ../../public/index.php?action=usuario_editar&id=$id");
+            header("Location: " . BASE_URL . "?action=usuario_editar&id=$id");
             exit();
         }
 
@@ -133,10 +148,10 @@ class UsuarioController {
         $resultado = $this->modelo->actualizar($id, $datos);
 
         if ($resultado['exito']) {
-            header('Location: ../../public/index.php?action=usuarios&mensaje=actualizado');
+            header("Location: " . BASE_URL . "?action=usuarios&mensaje=actualizado");
         } else {
             $_SESSION['errores'] = [$resultado['mensaje']];
-            header("Location: ../../public/index.php?action=usuario_editar&id=$id");
+            header("Location: " . BASE_URL . "?action=usuario_editar&id=$id");
         }
         exit();
     }
@@ -145,18 +160,17 @@ class UsuarioController {
         $this->verificarSesion();
         $this->soloAdmin();
 
-        // No puede eliminarse a sí mismo
         if ($id == $_SESSION['usuario_id']) {
-            header('Location: ../../public/index.php?action=usuarios&error=no_autoeliminar');
+            header("Location: " . BASE_URL . "?action=usuarios&error=no_autoeliminar");
             exit();
         }
 
         $resultado = $this->modelo->eliminar($id);
 
         if ($resultado['exito']) {
-            header('Location: ../../public/index.php?action=usuarios&mensaje=eliminado');
+            header("Location: " . BASE_URL . "?action=usuarios&mensaje=eliminado");
         } else {
-            header('Location: ../../public/index.php?action=usuarios&error=no_eliminado');
+            header("Location: " . BASE_URL . "?action=usuarios&error=no_eliminado");
         }
         exit();
     }

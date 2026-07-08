@@ -1,9 +1,9 @@
 <?php include_once __DIR__ . '/header.php'; ?>
 <?php
-include_once __DIR__ . '/../../app/models/Contrato.php';
-include_once __DIR__ . '/../../app/models/Pago.php';
-include_once __DIR__ . '/../../app/models/Propiedad.php';
-include_once __DIR__ . '/../../app/models/Usuario.php';
+include_once __DIR__ . '/../../models/Contrato.php';
+include_once __DIR__ . '/../../models/Pago.php';
+include_once __DIR__ . '/../../models/Propiedad.php';
+include_once __DIR__ . '/../../models/Usuario.php';
 
 $contratoModelo  = new Contrato();
 $pagoModelo      = new Pago();
@@ -16,7 +16,7 @@ $proximosAVencer        = $contratoModelo->obtenerProximosAVencer();
 
 // Para Admin también mostramos usuarios
 if ($_SESSION['rol'] === 'Admin') {
-    include_once __DIR__ . '/../../app/models/Usuario.php';
+    include_once __DIR__ . '/../../models/Usuario.php';
     $usuarioModelo  = new Usuario();
     $totalUsuarios  = count($usuarioModelo->obtenerTodos());
 }
@@ -39,7 +39,7 @@ if ($_SESSION['rol'] === 'Admin') {
     /* Cards de contadores */
     .cards-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
         margin-bottom: 2rem;
     }
@@ -62,23 +62,23 @@ if ($_SESSION['rol'] === 'Admin') {
     }
 
     .card-blue {
-        border-left-color: #3b82f6;
+        border-left-color: transparent;
     }
 
     .card-green {
-        border-left-color: #22c55e;
+        border-left-color: transparent;
     }
 
     .card-amber {
-        border-left-color: #f59e0b;
+        border-left-color: transparent;
     }
 
     .card-purple {
-        border-left-color: #8b5cf6;
+        border-left-color: transparent;
     }
 
     .card-red {
-        border-left-color: #ef4444;
+        border-left-color: transparent;
     }
 
     .card-icon {

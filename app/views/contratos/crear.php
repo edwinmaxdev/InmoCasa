@@ -26,13 +26,9 @@ $inquilinos  = $inquilinos  ?? [];
         transition: color 0.2s;
     }
 
-    .page-header a:hover {
-        color: #1a2e44;
-    }
+    .page-header a:hover { color: #1a2e44; }
 
-    .page-header .separator {
-        color: #d1d5db;
-    }
+    .page-header .separator { color: #d1d5db; }
 
     .page-title {
         font-size: 1.3rem;
@@ -43,15 +39,13 @@ $inquilinos  = $inquilinos  ?? [];
         gap: 0.5rem;
     }
 
-    .page-title i {
-        color: #4da6ff;
-    }
+    .page-title i { color: #4da6ff; }
 
     /* Formulario */
     .form-card {
         background: #fff;
         border-radius: 12px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
         padding: 1.75rem;
         max-width: 750px;
     }
@@ -62,15 +56,8 @@ $inquilinos  = $inquilinos  ?? [];
         gap: 1.25rem;
     }
 
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-    }
-
-    .form-group.full {
-        grid-column: 1 / -1;
-    }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
 
     label {
         font-size: 0.875rem;
@@ -78,14 +65,9 @@ $inquilinos  = $inquilinos  ?? [];
         color: #374151;
     }
 
-    .required {
-        color: #ef4444;
-        margin-left: 2px;
-    }
+    .required { color: #ef4444; margin-left: 2px; }
 
-    input,
-    select,
-    textarea {
+    input, select, textarea {
         padding: 0.65rem 0.9rem;
         border: 1.5px solid #e5e7eb;
         border-radius: 8px;
@@ -97,27 +79,15 @@ $inquilinos  = $inquilinos  ?? [];
         font-family: inherit;
     }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
+    input:focus, select:focus, textarea:focus {
         border-color: #4da6ff;
         background: #fff;
     }
 
-    .input-error {
-        border-color: #ef4444 !important;
-    }
+    .input-error { border-color: #ef4444 !important; }
+    .field-error { font-size: 0.78rem; color: #ef4444; margin-top: 2px; }
 
-    .field-error {
-        font-size: 0.78rem;
-        color: #ef4444;
-        margin-top: 2px;
-    }
-
-    textarea {
-        resize: vertical;
-        min-height: 80px;
-    }
+    textarea { resize: vertical; min-height: 80px; }
 
     /* Alerta errores */
     .alert-error {
@@ -133,14 +103,8 @@ $inquilinos  = $inquilinos  ?? [];
         align-items: flex-start;
     }
 
-    .alert-error ul {
-        padding-left: 1.2rem;
-        margin: 0;
-    }
-
-    .alert-error ul li {
-        margin-top: 2px;
-    }
+    .alert-error ul { padding-left: 1.2rem; margin: 0; }
+    .alert-error ul li { margin-top: 2px; }
 
     /* Botones */
     .form-actions {
@@ -165,25 +129,12 @@ $inquilinos  = $inquilinos  ?? [];
         transition: all 0.2s;
     }
 
-    .btn-primary {
-        background: #1a2e44;
-        color: #fff;
-    }
+    .btn-primary { background: #1a2e44; color: #fff; }
+    .btn-primary:hover { background: #243d57; }
+    .btn-secondary { background: #f3f4f6; color: #374151; }
+    .btn-secondary:hover { background: #e5e7eb; }
 
-    .btn-primary:hover {
-        background: #243d57;
-    }
-
-    .btn-secondary {
-        background: #f3f4f6;
-        color: #374151;
-    }
-
-    .btn-secondary:hover {
-        background: #e5e7eb;
-    }
-
-    /* Info del monto */
+    
     .monto-hint {
         font-size: 0.78rem;
         color: #6b7280;
@@ -198,7 +149,7 @@ $inquilinos  = $inquilinos  ?? [];
 
 <!-- Encabezado con breadcrumb -->
 <div class="page-header">
-    <a href="../../public/index.php?action=contratos">
+    <a href="http://localhost:8080/InmoCasa/public/index.php?action=contratos">
         <i class="fa-solid fa-arrow-left"></i> Contratos
     </a>
     <span class="separator">/</span>
@@ -222,7 +173,7 @@ $inquilinos  = $inquilinos  ?? [];
 
 <!-- Formulario -->
 <div class="form-card">
-    <form id="formContrato" method="POST" action="../../public/index.php?action=contrato_guardar" novalidate>
+    <form id="formContrato" method="POST" action="http://localhost:8080/InmoCasa/public/index.php?action=contrato_guardar" novalidate>
 
         <div class="form-grid">
 
@@ -267,7 +218,7 @@ $inquilinos  = $inquilinos  ?? [];
                     Fecha de inicio <span class="required">*</span>
                 </label>
                 <input type="date" name="fecha_inicio" id="fecha_inicio"
-                    value="<?= htmlspecialchars($_POST['fecha_inicio'] ?? '') ?>">
+                       value="<?= htmlspecialchars($_POST['fecha_inicio'] ?? '') ?>">
                 <span class="field-error" id="err_fecha_inicio"></span>
             </div>
 
@@ -277,7 +228,7 @@ $inquilinos  = $inquilinos  ?? [];
                     Fecha de fin <span class="required">*</span>
                 </label>
                 <input type="date" name="fecha_fin" id="fecha_fin"
-                    value="<?= htmlspecialchars($_POST['fecha_fin'] ?? '') ?>">
+                       value="<?= htmlspecialchars($_POST['fecha_fin'] ?? '') ?>">
                 <span class="field-error" id="err_fecha_fin"></span>
             </div>
 
@@ -287,8 +238,8 @@ $inquilinos  = $inquilinos  ?? [];
                     Monto mensual ($) <span class="required">*</span>
                 </label>
                 <input type="number" name="monto_mensual" id="monto_mensual"
-                    step="0.01" min="0.01" placeholder="0.00"
-                    value="<?= htmlspecialchars($_POST['monto_mensual'] ?? '') ?>">
+                       step="0.01" min="0.01" placeholder="0.00"
+                       value="<?= htmlspecialchars($_POST['monto_mensual'] ?? '') ?>">
                 <span class="field-error" id="err_monto"></span>
             </div>
 
@@ -309,7 +260,7 @@ $inquilinos  = $inquilinos  ?? [];
             <div class="form-group full">
                 <label for="observaciones">Observaciones</label>
                 <textarea name="observaciones" id="observaciones"
-                    placeholder="Notas adicionales del contrato..."><?= htmlspecialchars($_POST['observaciones'] ?? '') ?></textarea>
+                          placeholder="Notas adicionales del contrato..."><?= htmlspecialchars($_POST['observaciones'] ?? '') ?></textarea>
             </div>
 
         </div>
@@ -319,7 +270,7 @@ $inquilinos  = $inquilinos  ?? [];
                 <i class="fa-solid fa-floppy-disk"></i>
                 Guardar contrato
             </button>
-            <a href="../../public/index.php?action=contratos" class="btn btn-secondary">
+            <a href="http://localhost:8080/InmoCasa/public/index.php?action=contratos" class="btn btn-secondary">
                 <i class="fa-solid fa-xmark"></i>
                 Cancelar
             </a>
@@ -329,57 +280,57 @@ $inquilinos  = $inquilinos  ?? [];
 </div>
 
 <script>
-    document.getElementById('formContrato').addEventListener('submit', function(e) {
-        let valido = true;
+document.getElementById('formContrato').addEventListener('submit', function(e) {
+    let valido = true;
 
-        // Limpiar errores
-        document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
-        document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+    // Limpiar errores
+    document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
+    document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
 
-        const propiedad = document.getElementById('propiedad_id');
-        const inquilino = document.getElementById('inquilino_id');
-        const fechaInicio = document.getElementById('fecha_inicio');
-        const fechaFin = document.getElementById('fecha_fin');
-        const monto = document.getElementById('monto_mensual');
+    const propiedad  = document.getElementById('propiedad_id');
+    const inquilino  = document.getElementById('inquilino_id');
+    const fechaInicio = document.getElementById('fecha_inicio');
+    const fechaFin   = document.getElementById('fecha_fin');
+    const monto      = document.getElementById('monto_mensual');
 
-        if (!propiedad.value) {
-            propiedad.classList.add('input-error');
-            document.getElementById('err_propiedad').textContent = 'Selecciona una propiedad';
-            valido = false;
-        }
+    if (!propiedad.value) {
+        propiedad.classList.add('input-error');
+        document.getElementById('err_propiedad').textContent = 'Selecciona una propiedad';
+        valido = false;
+    }
 
-        if (!inquilino.value) {
-            inquilino.classList.add('input-error');
-            document.getElementById('err_inquilino').textContent = 'Selecciona un inquilino';
-            valido = false;
-        }
+    if (!inquilino.value) {
+        inquilino.classList.add('input-error');
+        document.getElementById('err_inquilino').textContent = 'Selecciona un inquilino';
+        valido = false;
+    }
 
-        if (!fechaInicio.value) {
-            fechaInicio.classList.add('input-error');
-            document.getElementById('err_fecha_inicio').textContent = 'La fecha de inicio es obligatoria';
-            valido = false;
-        }
+    if (!fechaInicio.value) {
+        fechaInicio.classList.add('input-error');
+        document.getElementById('err_fecha_inicio').textContent = 'La fecha de inicio es obligatoria';
+        valido = false;
+    }
 
-        if (!fechaFin.value) {
-            fechaFin.classList.add('input-error');
-            document.getElementById('err_fecha_fin').textContent = 'La fecha de fin es obligatoria';
-            valido = false;
-        }
+    if (!fechaFin.value) {
+        fechaFin.classList.add('input-error');
+        document.getElementById('err_fecha_fin').textContent = 'La fecha de fin es obligatoria';
+        valido = false;
+    }
 
-        if (fechaInicio.value && fechaFin.value && fechaFin.value <= fechaInicio.value) {
-            fechaFin.classList.add('input-error');
-            document.getElementById('err_fecha_fin').textContent = 'La fecha de fin debe ser mayor a la de inicio';
-            valido = false;
-        }
+    if (fechaInicio.value && fechaFin.value && fechaFin.value <= fechaInicio.value) {
+        fechaFin.classList.add('input-error');
+        document.getElementById('err_fecha_fin').textContent = 'La fecha de fin debe ser mayor a la de inicio';
+        valido = false;
+    }
 
-        if (!monto.value || parseFloat(monto.value) <= 0) {
-            monto.classList.add('input-error');
-            document.getElementById('err_monto').textContent = 'El monto debe ser mayor a 0';
-            valido = false;
-        }
+    if (!monto.value || parseFloat(monto.value) <= 0) {
+        monto.classList.add('input-error');
+        document.getElementById('err_monto').textContent = 'El monto debe ser mayor a 0';
+        valido = false;
+    }
 
-        if (!valido) e.preventDefault();
-    });
+    if (!valido) e.preventDefault();
+});
 </script>
 
 <?php include_once __DIR__ . '/../layouts/footer.php'; ?>

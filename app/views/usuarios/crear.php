@@ -24,13 +24,8 @@ $inquilinos   = $inquilinos   ?? [];
         transition: color 0.2s;
     }
 
-    .page-header a:hover {
-        color: #1a2e44;
-    }
-
-    .page-header .separator {
-        color: #d1d5db;
-    }
+    .page-header a:hover { color: #1a2e44; }
+    .page-header .separator { color: #d1d5db; }
 
     .page-title {
         font-size: 1.3rem;
@@ -41,14 +36,12 @@ $inquilinos   = $inquilinos   ?? [];
         gap: 0.5rem;
     }
 
-    .page-title i {
-        color: #4da6ff;
-    }
+    .page-title i { color: #4da6ff; }
 
     .form-card {
         background: #fff;
         border-radius: 12px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
         padding: 1.75rem;
         max-width: 750px;
     }
@@ -59,15 +52,8 @@ $inquilinos   = $inquilinos   ?? [];
         gap: 1.25rem;
     }
 
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-    }
-
-    .form-group.full {
-        grid-column: 1 / -1;
-    }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
 
     label {
         font-size: 0.875rem;
@@ -75,13 +61,9 @@ $inquilinos   = $inquilinos   ?? [];
         color: #374151;
     }
 
-    .required {
-        color: #ef4444;
-        margin-left: 2px;
-    }
+    .required { color: #ef4444; margin-left: 2px; }
 
-    input,
-    select {
+    input, select {
         padding: 0.65rem 0.9rem;
         border: 1.5px solid #e5e7eb;
         border-radius: 8px;
@@ -93,42 +75,26 @@ $inquilinos   = $inquilinos   ?? [];
         font-family: inherit;
     }
 
-    input:focus,
-    select:focus {
+    input:focus, select:focus {
         border-color: #4da6ff;
         background: #fff;
     }
 
-    .input-error {
-        border-color: #ef4444 !important;
-    }
+    .input-error { border-color: #ef4444 !important; }
+    .field-error { font-size: 0.78rem; color: #ef4444; margin-top: 2px; }
 
-    .field-error {
-        font-size: 0.78rem;
-        color: #ef4444;
-        margin-top: 2px;
-    }
-
-    .password-wrapper {
-        position: relative;
-    }
+    .password-wrapper { position: relative; }
 
     .toggle-password {
         position: absolute;
-        right: 0.75rem;
-        top: 50%;
+        right: 0.75rem; top: 50%;
         transform: translateY(-50%);
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: #9ca3af;
-        font-size: 0.9rem;
-        padding: 0;
+        background: none; border: none;
+        cursor: pointer; color: #9ca3af;
+        font-size: 0.9rem; padding: 0;
     }
 
-    .toggle-password:hover {
-        color: #4da6ff;
-    }
+    .toggle-password:hover { color: #4da6ff; }
 
     .alert-error {
         background: #fef2f2;
@@ -143,14 +109,8 @@ $inquilinos   = $inquilinos   ?? [];
         align-items: flex-start;
     }
 
-    .alert-error ul {
-        padding-left: 1.2rem;
-        margin: 0;
-    }
-
-    .alert-error ul li {
-        margin-top: 2px;
-    }
+    .alert-error ul { padding-left: 1.2rem; margin: 0; }
+    .alert-error ul li { margin-top: 2px; }
 
     /* Hint de rol */
     .rol-hint {
@@ -164,13 +124,8 @@ $inquilinos   = $inquilinos   ?? [];
         display: none;
     }
 
-    .rol-hint.visible {
-        display: block;
-    }
-
-    .rol-hint strong {
-        color: #374151;
-    }
+    .rol-hint.visible { display: block; }
+    .rol-hint strong  { color: #374151; }
 
     .form-actions {
         display: flex;
@@ -194,38 +149,20 @@ $inquilinos   = $inquilinos   ?? [];
         transition: all 0.2s;
     }
 
-    .btn-primary {
-        background: #1a2e44;
-        color: #fff;
-    }
-
-    .btn-primary:hover {
-        background: #243d57;
-    }
-
-    .btn-secondary {
-        background: #f3f4f6;
-        color: #374151;
-    }
-
-    .btn-secondary:hover {
-        background: #e5e7eb;
-    }
+    .btn-primary   { background: #1a2e44; color: #fff; }
+    .btn-primary:hover { background: #243d57; }
+    .btn-secondary { background: #f3f4f6; color: #374151; }
+    .btn-secondary:hover { background: #e5e7eb; }
 
     @media (max-width: 600px) {
-        .form-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .form-group.full {
-            grid-column: 1;
-        }
+        .form-grid { grid-template-columns: 1fr; }
+        .form-group.full { grid-column: 1; }
     }
 </style>
 
 <!-- Breadcrumb -->
 <div class="page-header">
-    <a href="../../public/index.php?action=usuarios">
+    <a href="http://localhost:8080/InmoCasa/public/index.php?action=usuarios">
         <i class="fa-solid fa-arrow-left"></i> Usuarios
     </a>
     <span class="separator">/</span>
@@ -250,8 +187,8 @@ $inquilinos   = $inquilinos   ?? [];
 <!-- Formulario -->
 <div class="form-card">
     <form id="formUsuario" method="POST"
-        action="../../public/index.php?action=usuario_guardar"
-        novalidate>
+          action="http://localhost:8080/InmoCasa/public/index.php?action=usuario_guardar"
+          novalidate>
 
         <div class="form-grid">
 
@@ -261,8 +198,8 @@ $inquilinos   = $inquilinos   ?? [];
                     Nombre completo <span class="required">*</span>
                 </label>
                 <input type="text" name="nombre" id="nombre"
-                    placeholder="Ej: Carlos Mendoza"
-                    value="<?= htmlspecialchars($_POST['nombre'] ?? '') ?>">
+                       placeholder="Ej: Carlos Mendoza"
+                       value="<?= htmlspecialchars($_POST['nombre'] ?? '') ?>">
                 <span class="field-error" id="err_nombre"></span>
             </div>
 
@@ -272,8 +209,8 @@ $inquilinos   = $inquilinos   ?? [];
                     Correo electrónico <span class="required">*</span>
                 </label>
                 <input type="email" name="email" id="email"
-                    placeholder="ejemplo@correo.com"
-                    value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+                       placeholder="ejemplo@correo.com"
+                       value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
                 <span class="field-error" id="err_email"></span>
             </div>
 
@@ -284,9 +221,9 @@ $inquilinos   = $inquilinos   ?? [];
                 </label>
                 <select name="rol" id="rol" onchange="toggleRolExtra()">
                     <option value="">Seleccione un rol</option>
-                    <option value="Admin" <?= ($_POST['rol'] ?? '') === 'Admin'       ? 'selected' : '' ?>>Admin</option>
+                    <option value="Admin"       <?= ($_POST['rol'] ?? '') === 'Admin'       ? 'selected' : '' ?>>Admin</option>
                     <option value="Propietario" <?= ($_POST['rol'] ?? '') === 'Propietario' ? 'selected' : '' ?>>Propietario</option>
-                    <option value="Inquilino" <?= ($_POST['rol'] ?? '') === 'Inquilino'   ? 'selected' : '' ?>>Inquilino</option>
+                    <option value="Inquilino"   <?= ($_POST['rol'] ?? '') === 'Inquilino'   ? 'selected' : '' ?>>Inquilino</option>
                 </select>
                 <span class="field-error" id="err_rol"></span>
             </div>
@@ -298,7 +235,7 @@ $inquilinos   = $inquilinos   ?? [];
                 </label>
                 <div class="password-wrapper">
                     <input type="password" name="password" id="password"
-                        placeholder="Mínimo 6 caracteres">
+                           placeholder="Mínimo 6 caracteres">
                     <button type="button" class="toggle-password" onclick="togglePass()">
                         <i class="fa-solid fa-eye" id="eyeIcon"></i>
                     </button>
@@ -355,7 +292,7 @@ $inquilinos   = $inquilinos   ?? [];
                 <i class="fa-solid fa-floppy-disk"></i>
                 Guardar usuario
             </button>
-            <a href="../../public/index.php?action=usuarios" class="btn btn-secondary">
+            <a href="http://localhost:8080/InmoCasa/public/index.php?action=usuarios" class="btn btn-secondary">
                 <i class="fa-solid fa-xmark"></i>
                 Cancelar
             </a>
@@ -365,84 +302,84 @@ $inquilinos   = $inquilinos   ?? [];
 </div>
 
 <script>
-    function toggleRolExtra() {
-        const rol = document.getElementById('rol').value;
-        document.getElementById('grupo_propietario').style.display = rol === 'Propietario' ? 'block' : 'none';
-        document.getElementById('grupo_inquilino').style.display = rol === 'Inquilino' ? 'block' : 'none';
+function toggleRolExtra() {
+    const rol = document.getElementById('rol').value;
+    document.getElementById('grupo_propietario').style.display = rol === 'Propietario' ? 'block' : 'none';
+    document.getElementById('grupo_inquilino').style.display   = rol === 'Inquilino'   ? 'block' : 'none';
+}
+
+function togglePass() {
+    const input   = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+    if (input.type === 'password') {
+        input.type = 'text';
+        eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        input.type = 'password';
+        eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+}
+
+document.getElementById('formUsuario').addEventListener('submit', function(e) {
+    let valido = true;
+
+    document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
+    document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+
+    const nombre   = document.getElementById('nombre');
+    const email    = document.getElementById('email');
+    const rol      = document.getElementById('rol');
+    const password = document.getElementById('password');
+
+    if (!nombre.value.trim()) {
+        nombre.classList.add('input-error');
+        document.getElementById('err_nombre').textContent = 'El nombre es obligatorio';
+        valido = false;
     }
 
-    function togglePass() {
-        const input = document.getElementById('password');
-        const eyeIcon = document.getElementById('eyeIcon');
-        if (input.type === 'password') {
-            input.type = 'text';
-            eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            input.type = 'password';
-            eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
-        }
+    if (!email.value.trim()) {
+        email.classList.add('input-error');
+        document.getElementById('err_email').textContent = 'El email es obligatorio';
+        valido = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        email.classList.add('input-error');
+        document.getElementById('err_email').textContent = 'El email no es válido';
+        valido = false;
     }
 
-    document.getElementById('formUsuario').addEventListener('submit', function(e) {
-        let valido = true;
+    if (!rol.value) {
+        rol.classList.add('input-error');
+        document.getElementById('err_rol').textContent = 'Selecciona un rol';
+        valido = false;
+    }
 
-        document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
-        document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+    if (!password.value) {
+        password.classList.add('input-error');
+        document.getElementById('err_password').textContent = 'La contraseña es obligatoria';
+        valido = false;
+    } else if (password.value.length < 6) {
+        password.classList.add('input-error');
+        document.getElementById('err_password').textContent = 'Mínimo 6 caracteres';
+        valido = false;
+    }
 
-        const nombre = document.getElementById('nombre');
-        const email = document.getElementById('email');
-        const rol = document.getElementById('rol');
-        const password = document.getElementById('password');
+    if (rol.value === 'Propietario' && !document.getElementById('propietario_id').value) {
+        document.getElementById('propietario_id').classList.add('input-error');
+        document.getElementById('err_propietario').textContent = 'Debes vincular un propietario';
+        valido = false;
+    }
 
-        if (!nombre.value.trim()) {
-            nombre.classList.add('input-error');
-            document.getElementById('err_nombre').textContent = 'El nombre es obligatorio';
-            valido = false;
-        }
+    if (rol.value === 'Inquilino' && !document.getElementById('inquilino_id').value) {
+        document.getElementById('inquilino_id').classList.add('input-error');
+        document.getElementById('err_inquilino').textContent = 'Debes vincular un inquilino';
+        valido = false;
+    }
 
-        if (!email.value.trim()) {
-            email.classList.add('input-error');
-            document.getElementById('err_email').textContent = 'El email es obligatorio';
-            valido = false;
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-            email.classList.add('input-error');
-            document.getElementById('err_email').textContent = 'El email no es válido';
-            valido = false;
-        }
+    if (!valido) e.preventDefault();
+});
 
-        if (!rol.value) {
-            rol.classList.add('input-error');
-            document.getElementById('err_rol').textContent = 'Selecciona un rol';
-            valido = false;
-        }
-
-        if (!password.value) {
-            password.classList.add('input-error');
-            document.getElementById('err_password').textContent = 'La contraseña es obligatoria';
-            valido = false;
-        } else if (password.value.length < 6) {
-            password.classList.add('input-error');
-            document.getElementById('err_password').textContent = 'Mínimo 6 caracteres';
-            valido = false;
-        }
-
-        if (rol.value === 'Propietario' && !document.getElementById('propietario_id').value) {
-            document.getElementById('propietario_id').classList.add('input-error');
-            document.getElementById('err_propietario').textContent = 'Debes vincular un propietario';
-            valido = false;
-        }
-
-        if (rol.value === 'Inquilino' && !document.getElementById('inquilino_id').value) {
-            document.getElementById('inquilino_id').classList.add('input-error');
-            document.getElementById('err_inquilino').textContent = 'Debes vincular un inquilino';
-            valido = false;
-        }
-
-        if (!valido) e.preventDefault();
-    });
-
-    // Inicializar estado del rol
-    toggleRolExtra();
+// Inicializar estado del rol
+toggleRolExtra();
 </script>
 
 <?php include_once __DIR__ . '/../layouts/footer.php'; ?>

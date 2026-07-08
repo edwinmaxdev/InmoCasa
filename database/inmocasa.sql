@@ -3,8 +3,8 @@
 --  Sistema de gestión inmobiliaria
 -- =====================================================
 
-CREATE DATABASE IF NOT EXISTS inmocasa CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE inmocasa;
+--CREATE DATABASE IF NOT EXISTS inmocasa CHARACTER SET utf8 COLLATE utf8_general_ci;
+--USE inmocasa;
 
 -- =====================================================
 --  TABLA: tipos_inmueble
@@ -49,15 +49,20 @@ CREATE TABLE IF NOT EXISTS inquilinos (
 CREATE TABLE IF NOT EXISTS propiedades (
     id INT AUTO_INCREMENT PRIMARY KEY,
     direccion VARCHAR(200) NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    metros2 DECIMAL(8,2) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    metros2 DECIMAL(8, 2) NOT NULL,
     descripcion TEXT,
-    estado ENUM('Disponible', 'Arrendada', 'En venta', 'Vendida') DEFAULT 'Disponible',
+    estado ENUM(
+        'Disponible',
+        'Arrendada',
+        'En venta',
+        'Vendida'
+    ) DEFAULT 'Disponible',
     tipo_id INT NOT NULL,
     propietario_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (tipo_id) REFERENCES tipos_inmueble(id),
-    FOREIGN KEY (propietario_id) REFERENCES propietarios(id)
+    FOREIGN KEY (tipo_id) REFERENCES tipos_inmueble (id),
+    FOREIGN KEY (propietario_id) REFERENCES propietarios (id)
 );
 
 -- =====================================================
@@ -69,12 +74,16 @@ CREATE TABLE IF NOT EXISTS contratos (
     inquilino_id INT NOT NULL,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE NOT NULL,
-    monto_mensual DECIMAL(10,2) NOT NULL,
-    estado ENUM('Activo', 'Finalizado', 'Cancelado') DEFAULT 'Activo',
+    monto_mensual DECIMAL(10, 2) NOT NULL,
+    estado ENUM(
+        'Activo',
+        'Finalizado',
+        'Cancelado'
+    ) DEFAULT 'Activo',
     observaciones TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (propiedad_id) REFERENCES propiedades(id),
-    FOREIGN KEY (inquilino_id) REFERENCES inquilinos(id)
+    FOREIGN KEY (propiedad_id) REFERENCES propiedades (id),
+    FOREIGN KEY (inquilino_id) REFERENCES inquilinos (id)
 );
 
 -- =====================================================
@@ -84,12 +93,16 @@ CREATE TABLE IF NOT EXISTS pagos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     contrato_id INT NOT NULL,
     fecha_pago DATE,
-    monto DECIMAL(10,2) NOT NULL,
+    monto DECIMAL(10, 2) NOT NULL,
     mes_correspondiente VARCHAR(20) NOT NULL,
-    estado ENUM('Pagado', 'Pendiente', 'Vencido') DEFAULT 'Pendiente',
+    estado ENUM(
+        'Pagado',
+        'Pendiente',
+        'Vencido'
+    ) DEFAULT 'Pendiente',
     observaciones TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (contrato_id) REFERENCES contratos(id)
+    FOREIGN KEY (contrato_id) REFERENCES contratos (id)
 );
 
 -- =====================================================
@@ -100,36 +113,48 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    rol ENUM('Admin', 'Propietario', 'Inquilino') NOT NULL,
+    rol ENUM(
+        'Admin',
+        'Propietario',
+        'Inquilino'
+    ) NOT NULL,
     propietario_id INT DEFAULT NULL,
     inquilino_id INT DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (propietario_id) REFERENCES propietarios(id),
-    FOREIGN KEY (inquilino_id) REFERENCES inquilinos(id)
+    FOREIGN KEY (propietario_id) REFERENCES propietarios (id),
+    FOREIGN KEY (inquilino_id) REFERENCES inquilinos (id)
 );
 
 -- =====================================================
 --  INDICES
 -- =====================================================
 -- propiedades: búsquedas frecuentes por estado y tipo
-CREATE INDEX idx_propiedades_estado ON propiedades(estado);
-CREATE INDEX idx_propiedades_tipo ON propiedades(tipo_id);
-CREATE INDEX idx_propiedades_propietario ON propiedades(propietario_id);
+CREATE INDEX idx_propiedades_estado ON propiedades (estado);
+
+CREATE INDEX idx_propiedades_tipo ON propiedades (tipo_id);
+
+CREATE INDEX idx_propiedades_propietario ON propiedades (propietario_id);
 
 -- propietarios e inquilinos: búsqueda por nombre
-CREATE INDEX idx_propietarios_nombre ON propietarios(nombre);
-CREATE INDEX idx_inquilinos_nombre ON inquilinos(nombre);
+CREATE INDEX idx_propietarios_nombre ON propietarios (nombre);
+
+CREATE INDEX idx_inquilinos_nombre ON inquilinos (nombre);
 
 -- contratos: filtrar por estado, propiedad e inquilino
-CREATE INDEX idx_contratos_estado ON contratos(estado);
-CREATE INDEX idx_contratos_propiedad ON contratos(propiedad_id);
-CREATE INDEX idx_contratos_inquilino ON contratos(inquilino_id);
+CREATE INDEX idx_contratos_estado ON contratos (estado);
+
+CREATE INDEX idx_contratos_propiedad ON contratos (propiedad_id);
+
+CREATE INDEX idx_contratos_inquilino ON contratos (inquilino_id);
 
 -- pagos: filtrar por estado y contrato
-CREATE INDEX idx_pagos_estado ON pagos(estado);
-CREATE INDEX idx_pagos_contrato ON pagos(contrato_id);
+CREATE INDEX idx_pagos_estado ON pagos (estado);
+
+CREATE INDEX idx_pagos_contrato ON pagos (contrato_id);
 
 -- usuarios: búsqueda por rol y relaciones
-CREATE INDEX idx_usuarios_rol ON usuarios(rol);
-CREATE INDEX idx_usuarios_propietario ON usuarios(propietario_id);
-CREATE INDEX idx_usuarios_inquilino ON usuarios(inquilino_id);
+CREATE INDEX idx_usuarios_rol ON usuarios (rol);
+
+CREATE INDEX idx_usuarios_propietario ON usuarios (propietario_id);
+
+CREATE INDEX idx_usuarios_inquilino ON usuarios (inquilino_id);

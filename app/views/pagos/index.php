@@ -168,7 +168,7 @@ $pagos = $pagos ?? [];
         Pagos
     </div>
     <?php if ($rol === 'Admin'): ?>
-        <a href="../../public/index.php?action=pago_crear" class="btn btn-primary">
+        <a href="http://localhost:8080/InmoCasa/public/index.php?action=pago_crear" class="btn btn-primary">
             <i class="fa-solid fa-plus"></i> Registrar pago
         </a>
     <?php endif; ?>
@@ -233,11 +233,11 @@ $pagos = $pagos ?? [];
                     <?php if ($rol === 'Admin'): ?>
                     <td>
                         <div class="acciones">
-                            <a href="../../public/index.php?action=pago_editar&id=<?= $p['id'] ?>"
+                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=pago_editar&id=<?= $p['id'] ?>"
                                class="btn btn-sm btn-warning" title="Editar">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a href="../../public/index.php?action=pago_eliminar&id=<?= $p['id'] ?>"
+                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=pago_eliminar&id=<?= $p['id'] ?>"
                                class="btn btn-sm btn-danger" title="Eliminar"
                                onclick="return confirm('¿Eliminar este pago?')">
                                 <i class="fa-solid fa-trash"></i>

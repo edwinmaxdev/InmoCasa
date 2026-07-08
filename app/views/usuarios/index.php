@@ -192,7 +192,7 @@ $usuarios = $usuarios ?? [];
         <i class="fa-solid fa-users-gear"></i>
         Usuarios
     </div>
-    <a href="../../public/index.php?action=usuario_crear" class="btn btn-primary">
+    <a href="http://localhost:8080/InmoCasa/public/index.php?action=usuario_crear" class="btn btn-primary">
         <i class="fa-solid fa-plus"></i> Nuevo usuario
     </a>
 </div>
@@ -255,12 +255,12 @@ $usuarios = $usuarios ?? [];
                     <td><?= date('d/m/Y', strtotime($u['created_at'])) ?></td>
                     <td>
                         <div class="acciones">
-                            <a href="../../public/index.php?action=usuario_editar&id=<?= $u['id'] ?>"
+                            <a href="http://localhost:8080/InmoCasa/public/index.php?action=usuario_editar&id=<?= $u['id'] ?>"
                                class="btn btn-sm btn-warning" title="Editar">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
                             <?php if ($u['id'] != $_SESSION['usuario_id']): ?>
-                                <a href="../../public/index.php?action=usuario_eliminar&id=<?= $u['id'] ?>"
+                                <a href="http://localhost:8080/InmoCasa/public/index.php?action=usuario_eliminar&id=<?= $u['id'] ?>"
                                    class="btn btn-sm btn-danger" title="Eliminar"
                                    onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
                                     <i class="fa-solid fa-trash"></i>

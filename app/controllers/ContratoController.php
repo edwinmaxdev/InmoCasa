@@ -3,7 +3,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 include_once __DIR__ . '/../models/Contrato.php';
-include_once __DIR__ . '/AuthController.php';
+include_once __DIR__ . '/../models/Propiedad.php';
+include_once __DIR__ . '/../models/Inquilino.php';
 
 class ContratoController {
 
@@ -15,14 +16,13 @@ class ContratoController {
 
     public function index() {
         AuthController::verificarSesion();
-        
-        // Admin ve todos, Inquilino solo los suyos
+
         if ($_SESSION['rol'] === 'Admin') {
             $contratos = $this->modelo->obtenerTodos();
         } elseif ($_SESSION['rol'] === 'Inquilino') {
             $contratos = $this->modelo->obtenerPorInquilino($_SESSION['inquilino_id']);
         } else {
-            header('Location: ../../public/index.php?error=acceso_denegado');
+            header("Location: " . BASE_URL . "?error=acceso_denegado");
             exit();
         }
 
@@ -35,13 +35,12 @@ class ContratoController {
         $contrato = $this->modelo->obtenerPorId($id);
 
         if (!$contrato) {
-            header('Location: ../../public/index.php?action=contratos&error=no_encontrado');
+            header("Location: " . BASE_URL . "?action=contratos&error=no_encontrado");
             exit();
         }
 
-        // Inquilino solo puede ver sus propios contratos
         if ($_SESSION['rol'] === 'Inquilino' && $contrato['inquilino_id'] != $_SESSION['inquilino_id']) {
-            header('Location: ../../public/index.php?error=acceso_denegado');
+            header("Location: " . BASE_URL . "?error=acceso_denegado");
             exit();
         }
 
@@ -50,6 +49,13 @@ class ContratoController {
 
     public function crear() {
         AuthController::verificarRol(['Admin']);
+
+        $propiedadModelo = new Propiedad();
+        $propiedades = $propiedadModelo->obtenerTodos();
+
+        $inquilinoModelo = new Inquilino();
+        $inquilinos = $inquilinoModelo->obtenerTodos();
+
         include_once __DIR__ . '/../views/contratos/crear.php';
     }
 
@@ -58,11 +64,11 @@ class ContratoController {
 
         $errores = [];
 
-        if (empty($_POST['propiedad_id']))    $errores[] = "La propiedad es obligatoria";
-        if (empty($_POST['inquilino_id']))    $errores[] = "El inquilino es obligatorio";
-        if (empty($_POST['fecha_inicio']))    $errores[] = "La fecha de inicio es obligatoria";
-        if (empty($_POST['fecha_fin']))       $errores[] = "La fecha de fin es obligatoria";
-        if (empty($_POST['monto_mensual']))   $errores[] = "El monto mensual es obligatorio";
+        if (empty($_POST['propiedad_id']))   $errores[] = "La propiedad es obligatoria";
+        if (empty($_POST['inquilino_id']))   $errores[] = "El inquilino es obligatorio";
+        if (empty($_POST['fecha_inicio']))   $errores[] = "La fecha de inicio es obligatoria";
+        if (empty($_POST['fecha_fin']))      $errores[] = "La fecha de fin es obligatoria";
+        if (empty($_POST['monto_mensual']))  $errores[] = "El monto mensual es obligatorio";
 
         if (!empty($_POST['fecha_inicio']) && !empty($_POST['fecha_fin'])) {
             if ($_POST['fecha_fin'] <= $_POST['fecha_inicio']) {
@@ -76,27 +82,27 @@ class ContratoController {
 
         if (!empty($errores)) {
             $_SESSION['errores'] = $errores;
-            header('Location: ../../public/index.php?action=contrato_crear');
+            header("Location: " . BASE_URL . "?action=contrato_crear");
             exit();
         }
 
         $datos = [
-            'propiedad_id'   => $_POST['propiedad_id'],
-            'inquilino_id'   => $_POST['inquilino_id'],
-            'fecha_inicio'   => $_POST['fecha_inicio'],
-            'fecha_fin'      => $_POST['fecha_fin'],
-            'monto_mensual'  => $_POST['monto_mensual'],
-            'estado'         => $_POST['estado'] ?? 'Activo',
-            'observaciones'  => $_POST['observaciones'] ?? null
+            'propiedad_id'  => $_POST['propiedad_id'],
+            'inquilino_id'  => $_POST['inquilino_id'],
+            'fecha_inicio'  => $_POST['fecha_inicio'],
+            'fecha_fin'     => $_POST['fecha_fin'],
+            'monto_mensual' => $_POST['monto_mensual'],
+            'estado'        => $_POST['estado'] ?? 'Activo',
+            'observaciones' => $_POST['observaciones'] ?? null
         ];
 
         $resultado = $this->modelo->crear($datos);
 
         if ($resultado['exito']) {
-            header('Location: ../../public/index.php?action=contratos&mensaje=creado');
+            header("Location: " . BASE_URL . "?action=contratos&mensaje=creado");
         } else {
             $_SESSION['errores'] = [$resultado['mensaje']];
-            header('Location: ../../public/index.php?action=contrato_crear');
+            header("Location: " . BASE_URL . "?action=contrato_crear");
         }
         exit();
     }
@@ -106,9 +112,15 @@ class ContratoController {
         $contrato = $this->modelo->obtenerPorId($id);
 
         if (!$contrato) {
-            header('Location: ../../public/index.php?action=contratos&error=no_encontrado');
+            header("Location: " . BASE_URL . "?action=contratos&error=no_encontrado");
             exit();
         }
+
+        $propiedadModelo = new Propiedad();
+        $propiedades = $propiedadModelo->obtenerTodos();
+
+        $inquilinoModelo = new Inquilino();
+        $inquilinos = $inquilinoModelo->obtenerTodos();
 
         include_once __DIR__ . '/../views/contratos/editar.php';
     }
@@ -136,7 +148,7 @@ class ContratoController {
 
         if (!empty($errores)) {
             $_SESSION['errores'] = $errores;
-            header("Location: ../../public/index.php?action=contrato_editar&id=$id");
+            header("Location: " . BASE_URL . "?action=contrato_editar&id=$id");
             exit();
         }
 
@@ -153,10 +165,10 @@ class ContratoController {
         $resultado = $this->modelo->actualizar($id, $datos);
 
         if ($resultado['exito']) {
-            header('Location: ../../public/index.php?action=contratos&mensaje=actualizado');
+            header("Location: " . BASE_URL . "?action=contratos&mensaje=actualizado");
         } else {
             $_SESSION['errores'] = [$resultado['mensaje']];
-            header("Location: ../../public/index.php?action=contrato_editar&id=$id");
+            header("Location: " . BASE_URL . "?action=contrato_editar&id=$id");
         }
         exit();
     }
@@ -166,9 +178,9 @@ class ContratoController {
         $resultado = $this->modelo->eliminar($id);
 
         if ($resultado['exito']) {
-            header('Location: ../../public/index.php?action=contratos&mensaje=eliminado');
+            header("Location: " . BASE_URL . "?action=contratos&mensaje=eliminado");
         } else {
-            header('Location: ../../public/index.php?action=contratos&error=no_eliminado');
+            header("Location: " . BASE_URL . "?action=contratos&error=no_eliminado");
         }
         exit();
     }

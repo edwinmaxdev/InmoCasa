@@ -14,7 +14,7 @@ class AuthController {
 
     public function login() {
         if (isset($_SESSION['usuario_id'])) {
-            header('Location: ../../public/index.php?action=dashboard');
+            header('Location: ' . BASE_URL . '?action=dashboard');
             exit();
         }
         include_once __DIR__ . '/../views/auth/login.php';
@@ -32,7 +32,7 @@ class AuthController {
 
         if (!empty($errores)) {
             $_SESSION['errores'] = $errores;
-            header('Location: ../../public/index.php?action=login');
+            header('Location: ' . BASE_URL . '?action=login');
             exit();
         }
 
@@ -43,23 +43,22 @@ class AuthController {
 
         if (!$resultado['exito']) {
             $_SESSION['errores'] = [$resultado['mensaje']];
-            header('Location: ../../public/index.php?action=login');
+            header('Location: ' . BASE_URL . '?action=login');
             exit();
         }
 
-        // Redirige según el rol detectado automáticamente
         switch ($resultado['rol']) {
             case 'Admin':
-                header('Location: ../../public/index.php?action=dashboard');
+                header('Location: ' . BASE_URL . '?action=dashboard');
                 break;
             case 'Propietario':
-                header('Location: ../../public/index.php?action=propiedades');
+                header('Location: ' . BASE_URL . '?action=propiedades');
                 break;
             case 'Inquilino':
-                header('Location: ../../public/index.php?action=contratos');
+                header('Location: ' . BASE_URL . '?action=contratos');
                 break;
             default:
-                header('Location: ../../public/index.php?action=dashboard');
+                header('Location: ' . BASE_URL . '?action=dashboard');
         }
         exit();
     }
@@ -67,13 +66,13 @@ class AuthController {
     public function logout() {
         $_SESSION = [];
         session_destroy();
-        header('Location: ../../public/index.php?action=login&mensaje=sesion_cerrada');
+        header('Location: ' . BASE_URL . '?action=login&mensaje=sesion_cerrada');
         exit();
     }
 
     public static function verificarSesion() {
         if (!isset($_SESSION['usuario_id'])) {
-            header('Location: ../../public/index.php?action=login');
+            header('Location: ' . BASE_URL . '?action=login');
             exit();
         }
     }
@@ -81,7 +80,7 @@ class AuthController {
     public static function verificarRol($roles = []) {
         self::verificarSesion();
         if (!in_array($_SESSION['rol'], $roles)) {
-            header('Location: ../../public/index.php?error=acceso_denegado');
+            header('Location: ' . BASE_URL . '?error=acceso_denegado');
             exit();
         }
     }

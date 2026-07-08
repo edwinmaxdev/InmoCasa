@@ -3,6 +3,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// =====================================================
+//  InmoCasa - Punto de entrada principal
+// =====================================================
+
+define('BASE_URL', 'http://localhost:8080/InmoCasa/public/index.php');
 
 $action = $_GET['action'] ?? 'login';
 
@@ -11,16 +16,22 @@ $rutasPublicas = ['login', 'procesarLogin'];
 
 // Si no hay sesión y la ruta no es pública, redirigir al login
 if (!isset($_SESSION['usuario_id']) && !in_array($action, $rutasPublicas)) {
-    header('Location: index.php?action=login');
+    header('Location: ' . BASE_URL . '?action=login');
     exit();
 }
 
+// =====================================================
+//  CARGAR CONTROLADORES
+// =====================================================
 require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/ContratoController.php';
 require_once __DIR__ . '/../app/controllers/PagoController.php';
 require_once __DIR__ . '/../app/controllers/UsuarioController.php';
 require_once __DIR__ . '/../app/controllers/PropiedadController.php';
 
+// =====================================================
+//  ENRUTADOR
+// =====================================================
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
 switch ($action) {
@@ -64,7 +75,7 @@ switch ($action) {
         (new PropiedadController())->eliminar($id);
         break;
 
-    // TIPOS 
+    // TIPOS
     case 'tipos':
     case 'tipo_crear':
     case 'tipo_guardar':
@@ -83,7 +94,7 @@ switch ($action) {
         };
         break;
 
-    // PROPIETARIOS 
+    // PROPIETARIOS
     case 'propietarios':
     case 'propietario_detalle':
     case 'propietario_crear':
@@ -104,7 +115,7 @@ switch ($action) {
         };
         break;
 
-    // INQUILINOS 
+    // INQUILINOS
     case 'inquilinos':
     case 'inquilino_detalle':
     case 'inquilino_crear':
@@ -204,9 +215,9 @@ switch ($action) {
     // RUTA NO ENCONTRADA
     default:
         if (isset($_SESSION['usuario_id'])) {
-            header('Location: index.php?action=dashboard');
+            header('Location: ' . BASE_URL . '?action=dashboard');
         } else {
-            header('Location: index.php?action=login');
+            header('Location: ' . BASE_URL . '?action=login');
         }
         exit();
 }

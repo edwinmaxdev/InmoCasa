@@ -8,18 +8,13 @@ $mensaje = $_GET['mensaje'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InmoCasa — Iniciar sesión</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             min-height: 100vh;
@@ -42,29 +37,22 @@ $mensaje = $_GET['mensaje'] ?? '';
         .panel-left::before {
             content: '';
             position: absolute;
-            top: -100px;
-            right: -100px;
-            width: 400px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.04);
+            top: -100px; right: -100px;
+            width: 400px; height: 400px;
+            background: rgba(255,255,255,0.04);
             border-radius: 50%;
         }
 
         .panel-left::after {
             content: '';
             position: absolute;
-            bottom: -80px;
-            left: -80px;
-            width: 300px;
-            height: 300px;
-            background: rgba(255, 255, 255, 0.03);
+            bottom: -80px; left: -80px;
+            width: 300px; height: 300px;
+            background: rgba(255,255,255,0.03);
             border-radius: 50%;
         }
 
-        .brand {
-            position: relative;
-            z-index: 1;
-        }
+        .brand { position: relative; z-index: 1; }
 
         .brand-logo {
             font-size: 2.2rem;
@@ -74,12 +62,10 @@ $mensaje = $_GET['mensaje'] ?? '';
             margin-bottom: 0.5rem;
         }
 
-        .brand-logo span {
-            color: #4da6ff;
-        }
+        .brand-logo span { color: #4da6ff; }
 
         .brand-tagline {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255,255,255,0.5);
             font-size: 0.95rem;
             margin-bottom: 3rem;
         }
@@ -95,14 +81,13 @@ $mensaje = $_GET['mensaje'] ?? '';
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            color: rgba(255, 255, 255, 0.75);
+            color: rgba(255,255,255,0.75);
             font-size: 0.95rem;
         }
 
         .feature-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(77, 166, 255, 0.15);
+            width: 36px; height: 36px;
+            background: rgba(77,166,255,0.15);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -126,7 +111,7 @@ $mensaje = $_GET['mensaje'] ?? '';
             padding: 2.5rem;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
         }
 
         .login-title {
@@ -152,30 +137,12 @@ $mensaje = $_GET['mensaje'] ?? '';
             gap: 0.5rem;
         }
 
-        .alert-error {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #dc2626;
-        }
+        .alert-error   { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
+        .alert-success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; }
+        .alert ul { padding-left: 1.2rem; margin: 0; }
+        .alert ul li { margin-top: 2px; }
 
-        .alert-success {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            color: #16a34a;
-        }
-
-        .alert ul {
-            padding-left: 1.2rem;
-            margin: 0;
-        }
-
-        .alert ul li {
-            margin-top: 2px;
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
+        .form-group { margin-bottom: 1.25rem; }
 
         label {
             display: block;
@@ -185,14 +152,11 @@ $mensaje = $_GET['mensaje'] ?? '';
             margin-bottom: 0.4rem;
         }
 
-        .input-wrapper {
-            position: relative;
-        }
+        .input-wrapper { position: relative; }
 
         .input-icon {
             position: absolute;
-            left: 0.85rem;
-            top: 50%;
+            left: 0.85rem; top: 50%;
             transform: translateY(-50%);
             color: #9ca3af;
             font-size: 0.9rem;
@@ -212,41 +176,27 @@ $mensaje = $_GET['mensaje'] ?? '';
             background: #fafafa;
         }
 
-        input:focus {
-            border-color: #4da6ff;
-            background: #fff;
-        }
-
-        .input-error {
-            border-color: #dc2626 !important;
-        }
+        input:focus { border-color: #4da6ff; background: #fff; }
+        .input-error { border-color: #dc2626 !important; }
 
         .toggle-password {
             position: absolute;
-            right: 0.75rem;
-            top: 50%;
+            right: 0.75rem; top: 50%;
             transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #9ca3af;
-            font-size: 0.9rem;
-            padding: 0;
+            background: none; border: none;
+            cursor: pointer; color: #9ca3af;
+            font-size: 0.9rem; padding: 0;
         }
 
-        .toggle-password:hover {
-            color: #4da6ff;
-        }
+        .toggle-password:hover { color: #4da6ff; }
 
         .btn-login {
             width: 100%;
             padding: 0.8rem;
             background: #1a2e44;
-            color: #fff;
-            border: none;
+            color: #fff; border: none;
             border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 1rem; font-weight: 500;
             cursor: pointer;
             transition: background 0.2s, transform 0.1s;
             margin-top: 0.5rem;
@@ -256,26 +206,15 @@ $mensaje = $_GET['mensaje'] ?? '';
             gap: 0.5rem;
         }
 
-        .btn-login:hover {
-            background: #243d57;
-        }
-
-        .btn-login:active {
-            transform: scale(0.99);
-        }
+        .btn-login:hover  { background: #243d57; }
+        .btn-login:active { transform: scale(0.99); }
 
         @media (max-width: 768px) {
-            .panel-left {
-                display: none;
-            }
-
-            .panel-right {
-                background: #f0f4f8;
-            }
+            .panel-left { display: none; }
+            .panel-right { background: #f0f4f8; }
         }
     </style>
 </head>
-
 <body>
 
     <div class="panel-left">
@@ -326,15 +265,15 @@ $mensaje = $_GET['mensaje'] ?? '';
                 </div>
             <?php endif; ?>
 
-            <form action="../../public/index.php?action=procesarLogin" method="POST" novalidate id="loginForm">
+            <form action="http://localhost:8080/InmoCasa/public/index.php?action=procesarLogin" method="POST" novalidate id="loginForm">
 
                 <div class="form-group">
                     <label for="email">Correo electrónico</label>
                     <div class="input-wrapper">
                         <i class="fa-solid fa-envelope input-icon"></i>
                         <input type="email" id="email" name="email"
-                            placeholder="ejemplo@correo.com"
-                            value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+                               placeholder="ejemplo@correo.com"
+                               value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
                     </div>
                 </div>
 
@@ -343,7 +282,7 @@ $mensaje = $_GET['mensaje'] ?? '';
                     <div class="input-wrapper">
                         <i class="fa-solid fa-lock input-icon"></i>
                         <input type="password" id="password" name="password"
-                            placeholder="Tu contraseña">
+                               placeholder="Tu contraseña">
                         <button type="button" class="toggle-password" onclick="togglePassword()">
                             <i class="fa-solid fa-eye" id="eyeIcon"></i>
                         </button>
@@ -360,7 +299,7 @@ $mensaje = $_GET['mensaje'] ?? '';
 
     <script>
         function togglePassword() {
-            const input = document.getElementById('password');
+            const input   = document.getElementById('password');
             const eyeIcon = document.getElementById('eyeIcon');
             if (input.type === 'password') {
                 input.type = 'text';
@@ -372,7 +311,7 @@ $mensaje = $_GET['mensaje'] ?? '';
         }
 
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            const email = document.getElementById('email');
+            const email    = document.getElementById('email');
             const password = document.getElementById('password');
             let valido = true;
 
@@ -397,5 +336,4 @@ $mensaje = $_GET['mensaje'] ?? '';
     </script>
 
 </body>
-
 </html>
